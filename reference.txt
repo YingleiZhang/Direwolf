@@ -1,0 +1,10 @@
+###############################################################################################################
+############## This file can be used to track the links we used to create features ############################
+###############################################################################################################
+
+**** Google Authentication
+http://richonrails.com/articles/google-authentication-in-ruby-on-rails
+https://developers.google.com/console/help/new/#generatingoauth2
+http://stackoverflow.com/questions/23197388/error-in-omniauth-with-google
+
+
