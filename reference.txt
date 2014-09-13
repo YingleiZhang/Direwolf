@@ -7,4 +7,5 @@ http://richonrails.com/articles/google-authentication-in-ruby-on-rails
 https://developers.google.com/console/help/new/#generatingoauth2
 http://stackoverflow.com/questions/23197388/error-in-omniauth-with-google
 
-
+**** Foreign key facility in rails migration
+https://github.com/matthuhiggins/foreigner

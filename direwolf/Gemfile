@@ -31,6 +31,10 @@ gem 'jbuilder', '~> 1.2'
 # and http://richonrails.com/articles/google-authentication-in-ruby-on-rails
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 
+# Add foreign key support to rails migration 
+# refer https://github.com/matthuhiggins/foreigner
+gem 'foreigner'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
