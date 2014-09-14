@@ -10,5 +10,5 @@
  *
  *= require_self
  *= require vendor_css
- *= require_tree .
+ *= require styles
  */
