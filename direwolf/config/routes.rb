@@ -1,4 +1,12 @@
 Direwolf::Application.routes.draw do
+  resources :seekers
+
+  resources :employers
+
+  resources :admins
+
+  resources :users
+
   get "sessions/create"
   get "sessions/destroy"
   get "home/show"
