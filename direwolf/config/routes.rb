@@ -9,7 +9,11 @@ Direwolf::Application.routes.draw do
 
   get "sessions/create"
   get "sessions/destroy"
-  get "home/show"
+ 
+   
+  get 'home/register', to: 'home#register'
+  get 'home/:id/index', to: 'home#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -20,12 +24,13 @@ Direwolf::Application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   resources :sessions, only: [:create, :destroy]
-  resource :home, only: [:show]
+  resources :home, only: [:index]
+  #resource :home, only: [:show]
   
   #root 'home#show'
 
   root 'welcome#index'
-
+#root 'JobSeeker#dasboard'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
