@@ -25,6 +25,7 @@ class SeekersController < ApplicationController
   # POST /seekers.json
   def create
     @seeker = Seeker.new(seeker_params)
+    @seeker.user_id = User.find(session[:user_id]).uid
 
     respond_to do |format|
       if @seeker.save
@@ -69,6 +70,6 @@ class SeekersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seeker_params
-      params[:seeker]
+      params.require(:seeker).permit(:name)
     end
 end

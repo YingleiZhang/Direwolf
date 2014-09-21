@@ -2,9 +2,9 @@ class WelcomeController < ApplicationController
   def index
     if session[:user_id]
       if User.exists?(session[:user_id])
-        user_type = UsersController.new(session[:user_id])
-        if(user_type.user)
-          redirect_to "/home/"+user_type.user
+        user = UsersController.new(session[:user_id])
+        if(user.type)
+          redirect_to "/"+user.type.to_s.pluralize(0)
         else
           redirect_to "/home/register/"
         end

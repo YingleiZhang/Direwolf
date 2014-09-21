@@ -25,6 +25,7 @@ class AdminsController < ApplicationController
   # POST /admins.json
   def create
     @admin = Admin.new(admin_params)
+    @admin.user_id = User.find(session[:user_id]).uid
 
     respond_to do |format|
       if @admin.save
@@ -69,6 +70,6 @@ class AdminsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
-      params[:admin]
+      params.require(:admin).permit(:name)
     end
 end

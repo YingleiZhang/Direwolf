@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  attr_reader :user
+  attr_reader :info, :type
   # GET /users
   # GET /users.json
   def index
@@ -23,22 +23,28 @@ class UsersController < ApplicationController
 
   def initialize(id)
     if User.exists?(id)
-      @user = User.find(id)
-      if Seeker.exists?(user_id: @user.uid)
-        @user = Seeker.where(user_id: @user.uid)
+      @info = User.find(id)
+      @type = :user
+      if Seeker.exists?(user_id: @info.uid)
+        @info = Seeker.where(user_id: @info.uid)
+        @type = :seeker
       else
-        if Employer.exists?(user_id: @user.uid)
-          @user = Employer.where(user_id: @user.uid)
+        if Employer.exists?(user_id: @info.uid)
+          @info = Employer.where(user_id: @info.uid)
+          @type = :employer
         else
-          if Admin.exists?(user_id: @user.uid)
-            @user = Admin.where(user_id: @user.uid)
+          if Admin.exists?(user_id: @info.uid)
+            @info = Admin.where(user_id: @info.uid)
+            @type = :admin
           else
-            @user = nil
+            @info = nil
+            @type = nil
           end
         end
       end
     else
-      @user = nil
+      @info = nil
+      @type = nil
     end
   end
 
