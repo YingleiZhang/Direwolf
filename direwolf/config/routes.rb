@@ -1,5 +1,5 @@
 Direwolf::Application.routes.draw do
-  resources :seekers
+
 
   resources :employers
 
@@ -7,10 +7,18 @@ Direwolf::Application.routes.draw do
 
   resources :users
 
+  resources :seekers, only: [:index, :new, :create]
+  resources :admins, only: [:index, :new, :create]
+  resources :employers, only: [:index, :new, :create]
+
   get "sessions/create"
   get "sessions/destroy"
  
-   
+  get "seekers/:id", to: "seekers#index"
+  get "admins/:id", to: "admins#index" 
+  get "employers/:id", to: "employers#index" 
+
+  
   get 'home/register', to: 'home#register'
   get 'home/:id/index', to: 'home#index'
 

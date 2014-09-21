@@ -12,9 +12,6 @@
   <tbody>
     <% @seekers.each do |seeker| %>
       <tr>
-        <td><%= link_to 'Show', seeker %></td>
-        <td><%= link_to 'Edit', edit_seeker_path(seeker) %></td>
-        <td><%= link_to 'Destroy', seeker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +19,3 @@
 
 <br>
 
-<%= link_to 'New Seeker', new_seeker_path %>
