@@ -12,4 +12,10 @@ class ApplicationController < ActionController::Base
       @current_user = nil
     end
   end
+
+  def permission_denied
+    redirect_to "http://giphy.com/gifs/njYrp176NQsHS/fullscreen?undefined"
+    # render :file => "public/401.html", :status => :unauthorized
+  end
+
 end
