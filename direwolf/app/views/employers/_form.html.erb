@@ -1,5 +1,5 @@
-<%= form_for(@employer) do |f| %>
-  <% if @employer.errors.any? %>
+<%= form_for @employer, :html => {:class => "form-horizontal center"} do |f| %>
+    <% if @employer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@employer.errors.count, "error") %> prohibited this employer from being saved:</h2>
 
@@ -9,9 +9,15 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+      <%= f.label :name, "Name:", class: "col-md-4 control-label" %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <div class="col-md-4">
+        <%= f.submit "Submit", class: "btn btn-default btn-primary" %>
+      </div>
+    </div>
 <% end %>
