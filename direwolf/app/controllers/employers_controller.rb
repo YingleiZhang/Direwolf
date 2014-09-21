@@ -5,7 +5,7 @@ class EmployersController < ApplicationController
   # GET /employers.json
   def index
     @employer = Employer.find_by user_id: User.find(session[:user_id]).uid
-    @jobs = Job.find_by employer_id: @employer.id
+    @jobs = Job.where(employer_id: @employer.id).take(10)
   end
 
   # GET /employers/1

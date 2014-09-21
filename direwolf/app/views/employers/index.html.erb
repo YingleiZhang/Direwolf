@@ -18,9 +18,10 @@
         </thead>
         <tbody>
         <% if @jobs %>
+          <% @jobs.each_index do |x| %>
           <tr>
-          <td>1</td>
-          <td><% @jobs.title %></td>
+            <td><%=x+1%></td>
+          <td><%= @jobs[x].title %></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-success">Show</button>
@@ -28,6 +29,7 @@
             </div>
           </td>
         </tr>
+      <% end %>
       <% end %>
 
         </tbody>
