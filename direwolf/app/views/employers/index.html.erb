@@ -1,1 +1,37 @@
 <!--If not employer, then redirect to dashboard or 404-->
+<div class="btn-group">
+  <%= link_to "New Job Posting", new_job_path, class: "btn btn-success btn-block" %>
+</div>
+
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Job Seeker Table</h3>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% if @jobs %>
+          <tr>
+          <td>1</td>
+          <td><% @jobs.title %></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-success">Show</button>
+              <button type="button" class="btn btn-danger">Remove</button>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+

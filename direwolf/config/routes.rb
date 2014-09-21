@@ -11,6 +11,7 @@ Direwolf::Application.routes.draw do
   resources :admins, only: [:index, :new, :create]
   resources :employers, only: [:index, :new, :create]
   resources :category, only: [:index]
+  resources :job, only: [:index, :new, :create]
 
   get "sessions/create"
   get "sessions/destroy"
