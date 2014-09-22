@@ -13,6 +13,9 @@ Direwolf::Application.routes.draw do
   resources :category, only: [:index]
   resources :job, only: [:index, :new, :create, :show]
 
+  # get all tags in json form
+  get "job/tags", to: "job#get_tags_as_json"
+
   get "sessions/create"
   get "sessions/destroy"
  
