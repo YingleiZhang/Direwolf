@@ -10,7 +10,7 @@ Direwolf::Application.routes.draw do
   resources :seekers, only: [:index, :new, :create]
   resources :admins, only: [:index, :new, :create]
   resources :employers, only: [:index, :new, :create]
-  resources :category, only: [:index]
+  resources :category, only: [:index, :destroy, :create]
   resources :job
 
   # get all tags in json form
@@ -21,9 +21,8 @@ Direwolf::Application.routes.draw do
  
   get "seekers/:id", to: "seekers#index"
   get "admins/:id", to: "admins#index" 
-  get "employers/:id", to: "employers#index" 
+  get "employers/:id", to: "employers#index"
 
-  
   get 'home/register', to: 'home#register'
   get 'home/:id/index', to: 'home#index'
 
