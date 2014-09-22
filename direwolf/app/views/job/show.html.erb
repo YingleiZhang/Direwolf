@@ -1,0 +1,11 @@
+<h1>Job Posting</h1>
+<%if @job%>
+  <h2 style="text-decoration:underline;"><%=@job.title.to_s%></h2>
+  <p><strong>Category: </strong> <%= @category %> </p>
+  <p><strong>Description: </strong>Nothing to see here</p>
+  <p><strong>Employer: </strong><%=@employer%></p>
+  <p><strong>Tags</strong></p>
+  <% @job.tag_list.each do |x|%>
+    <p><%=x%></p>
+  <%end%>
+<%end%>

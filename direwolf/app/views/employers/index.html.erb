@@ -24,8 +24,7 @@
           <td><%= @jobs[x].title %></td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
+              <%= link_to "Show", "/job/"+@jobs[x].id.to_s, class: "btn btn-success btn-block" %>
             </div>
           </td>
         </tr>

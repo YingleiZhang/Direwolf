@@ -16,8 +16,19 @@ class JobController < ApplicationController
     @job.save!
     redirect_to root_path
   end
+  def show
+    @job = Job.find params[:id]
+    if @job
+      if Category.exists? @job.category_id
+        @category = Category.find(@job.category_id).name
+      end
+      @employer = Employer.find(@job.employer_id).name
+    end
+  end
+
   private
   def job_params
     params.require(:job).permit(:title)
   end
 end
+
