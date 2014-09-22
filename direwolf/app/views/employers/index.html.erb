@@ -3,42 +3,41 @@
   <%= link_to "New Job Posting", new_job_path, class: "btn btn-success btn-block" %>
 </div>
 
-  <div class="col-md-4">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Job Seeker Table</h3>
-      </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% if @jobs %>
-          <% @jobs.each_index do |x| %>
-          <tr>
-            <td><%=x+1%></td>
-          <td><%= @jobs[x].title %></td>
-          <td>
-            <div class="btn-group">
-              <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary btn-block" %>
-            </div>
-            <div class="btn-group">
-              <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success btn-block" %>
-            </div>
-            <div class="btn-group">
-              <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-block" %>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-      <% end %>
-
-        </tbody>
-      </table>
+<div class="col-md-4">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Job Seeker Table</h3>
     </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% if @jobs %>
+        <% @jobs.each_index do |x| %>
+        <tr>
+        <td><%=x+1%></td>
+        <td><%= @jobs[x].title %></td>
+        <td>
+          <div class="btn-group">
+            <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary btn-block" %>
+          </div>
+          <div class="btn-group">
+            <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success btn-block" %>
+          </div>
+          <div class="btn-group">
+            <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-block" %>
+          </div>
+        </td>
+        </tr>
+       <% end %>
+      <% end %>
+      </tbody>
+    </table>
   </div>
+</div>
 

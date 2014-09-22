@@ -2,7 +2,7 @@ class JobsController < ApplicationController
 
   include EmployersHelper
   def index
-    @jobs = Job.all
+      permission_denied #"Job Does Not Exist"
   end
 
   def new

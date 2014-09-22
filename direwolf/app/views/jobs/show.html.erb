@@ -8,4 +8,7 @@
   <% @job.tag_list.each do |x|%>
     <p><%=x%></p>
   <%end%>
+  <%if employer_owns @job.id %>
+    <%= link_to "Mange Applications", job_application_path(@job.id), class: "btn btn-success btn-block" %>
+  <%end%>
 <%end%>

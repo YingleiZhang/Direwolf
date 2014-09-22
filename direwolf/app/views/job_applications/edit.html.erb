@@ -1,0 +1,14 @@
+<h1>Application Decision</h1>
+<%if @app%>
+  <h2 style="text-decoration:underline;"><%=@job.title.to_s%></h2>
+  <p><strong>Applicant Name: </strong> <%= @seeker.name %> </p>
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textarea">Comments</label>
+    <div class="col-md-4">
+      <textarea class="form-control" id="textarea" name="textarea" placeholder="Wtire comments here"></textarea>
+    </div>
+  </div>
+  <div><%= link_to "Select", "/job_applications/select/"+@app.id.to_s, method: :post, class: "btn btn-success btn-block" %></div>
+  <div><%= link_to "Reject", "/job_applications/reject/"+@app.id.to_s, method: :post, class: "btn btn-danger btn-block" %></div>
+<%end%>

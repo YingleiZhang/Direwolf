@@ -2,16 +2,18 @@ Direwolf::Application.routes.draw do
 
 
   resources :employers
-
   resources :admins
-
   resources :users
+  resources :seekers
 
-  resources :seekers, only: [:index, :new, :create]
   resources :admins, only: [:index, :new, :create]
   resources :employers, only: [:index, :new, :create]
   resources :category, only: [:index, :destroy, :create]
   resources :jobs
+  resources :job_applications
+
+  post "job_applications/select/:id", to: "job_applications#select"
+  post "job_applications/reject/:id", to: "job_applications#reject"
 
   # get all tags in json form
   get "jobs/tags", to: "jobs#get_tags_as_json"

@@ -1,0 +1,33 @@
+<div class="col-md-4">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Applications</h3>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Applicant Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% if @apps %>
+        <% @apps.each_index do |x| %>
+        <tr>
+        <td><%=x+1%></td>
+        <% seeker = Seeker.find(@apps[x].seeker_id)%>
+        <td><%= link_to seeker.name, seeker_path(seeker.id), class: "btn btn-primary btn-block" %></td>
+        <td>
+          <div class="btn-group">
+            <%= link_to "Process", edit_job_application_path(@apps[x].id), class: "btn btn-success btn-block" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
