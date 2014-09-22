@@ -1,23 +1,66 @@
 <%= form_for @job, url: job_index_path, :html => {:class => "form-horizontal center"} do |f| %>
-    <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this employer from being saved:</h2>
+  <% if @job.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@job.errors.count, "error") %> prohibited this employer from being saved:</h2>
 
-      <ul>
-      <% @job.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+    <ul>
+    <% @job.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
     <% end %>
+    </ul>
+  </div>
+  <% end %>
 
-    <div class="field">
-      <%= f.label :title, "Job Title:", class: "col-md-4 control-label" %>
-      <%= f.text_field :title %>
-    </div>
-    <div class="field">
-      <div class="col-md-4">
-        <%= f.submit "Submit", class: "btn btn-default btn-primary" %>
+  <form class="form-horizontal">
+    <fieldset>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :title, "Job Title:", class: "col-md-4 control-label", for: "jobTitle" %>
+          <div class="col-md-4">
+            <%= f.text_field :title, class: "form-control input-md", placeholder: "The Job's Title" %>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="jobCategory">Job Category</label>
+        <div class="col-md-4">
+          <select id="jobCategory" name="jobCategory" class="form-control">
+            <option value="1">Option one</option>
+            <option value="2">Option two</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="jobTags">Job Tags</label>
+        <div class="col-md-4">
+          <input id="jobTags" name="jobTags" type="text" placeholder="Ruby, Rails, Management, etc." class="form-control input-md">
+          <span class="help-block">Comma Separated List of Tags</span>
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textarea">Job Description</label>
+        <div class="col-md-4">
+          <textarea class="form-control" id="textarea" name="textarea" placeholder="Place job description text here"></textarea>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="submit"></label>
+        <div class="col-md-4">
+          <%= f.submit "Save", class: "btn btn-default btn-primary" %>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+
 <% end %>
