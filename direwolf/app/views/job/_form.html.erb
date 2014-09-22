@@ -14,6 +14,8 @@
   <form class="form-horizontal">
     <fieldset>
 
+      <legend><%= title %></legend>
+
       <!-- Text input-->
       <div class="form-group">
         <div class="field">
@@ -39,7 +41,7 @@
 
       <!-- Text input-->
       <div class="form-group">
-          <%= f.label :tag_list, "Job Tags:", class: "col-md-4 control-label", for: "jobTags" %>
+          <%= f.label :tag_list, "Job Tags:", class: "col-md-4 control-label", for: "job_tag_list" %>
         <div class="col-md-4">
           <%= f.text_field :tag_list, class: "form-control input-md", placeholder: "Tags (separated by commas)" %>
           <span class="help-block">Comma Separated List of Tags</span>
