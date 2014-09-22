@@ -1,8 +1,8 @@
-class JobController < ApplicationController
+class JobsController < ApplicationController
 
   include EmployersHelper
   def index
-    @job = Job.all
+    @jobs = Job.all
   end
 
   def new
@@ -25,9 +25,9 @@ class JobController < ApplicationController
       @job.tag_list.add(params[:job][:tag_list].to_s.downcase, parse: true)
       @job.employer_id = get_employer_id
       @job.category_id = 1
-      @job.save!
+      @job.save
     end
-    redirect_to root_path
+    redirect_to employers_path
   end
 
   def show

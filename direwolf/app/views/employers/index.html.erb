@@ -24,13 +24,13 @@
           <td><%= @jobs[x].title %></td>
           <td>
             <div class="btn-group">
-              <%= link_to "Show", "/job/"+@jobs[x].id.to_s, class: "btn btn-primary btn-block" %>
+              <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary btn-block" %>
             </div>
             <div class="btn-group">
-              <%= link_to "Edit", "/job/"+@jobs[x].id.to_s+"/edit", class: "btn btn-success btn-block" %>
+              <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success btn-block" %>
             </div>
             <div class="btn-group">
-              <%= link_to "Delete", "/job/"+@jobs[x].id.to_s, :method=> :delete, class: "btn btn-danger btn-block" %>
+              <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-block" %>
             </div>
           </td>
         </tr>
