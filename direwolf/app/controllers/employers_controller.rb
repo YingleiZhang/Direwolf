@@ -1,11 +1,12 @@
 class EmployersController < ApplicationController
   before_action :set_employer, only: [:show, :edit, :update, :destroy]
 
+  include EmployersHelper
+
   # GET /employers
   # GET /employers.json
   def index
-    @employer = Employer.find_by user_id: User.find(session[:user_id]).uid
-    @jobs = Job.where(employer_id: @employer.id).take(10)
+    @jobs = Job.where( employer_id: get_employer_id ).take(10)
   end
 
   # GET /employers/1
@@ -16,6 +17,7 @@ class EmployersController < ApplicationController
   # GET /employers/new
   def new
     @employer = Employer.new
+    @error = flash[:error_message]
   end
 
   # GET /employers/1/edit
@@ -26,16 +28,13 @@ class EmployersController < ApplicationController
   # POST /employers.json
   def create
     @employer = Employer.new(employer_params)
-    @employer.user_id = User.find(session[:user_id]).uid
+    @employer.user_id = get_user_id
 
-    respond_to do |format|
-      if @employer.save
-        format.html { redirect_to @employer, notice: 'Employer was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @employer }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @employer.errors, status: :unprocessable_entity }
-      end
+    if @employer.save
+      redirect_to root_path
+    else
+      flash[:error_message] = "Employer creation Unsuccessful"
+      redirect_to new_employer_path
     end
   end
 
