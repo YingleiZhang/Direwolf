@@ -1,5 +1,6 @@
 class JobController < ApplicationController
 
+  include EmployersHelper
   def index
     @job = Job.all
   end
@@ -8,26 +9,57 @@ class JobController < ApplicationController
     @job = Job.new
   end
 
+  def edit
+    if user_is :employer
+      if employer_owns params[:id]
+        @job = Job.find params[:id]
+      end
+    end
+    permission_denied unless @job
+  end
+
   def create
-    @job = Job.new(job_params)
-    @user = User.find_by(session[:user_id])
-    # add tags
-    @job.tag_list.add(params[:job][:tag_list].to_s.downcase, parse: true)
-    flash[:uid] = @user.uid
-    @employer = Employer.find_by user_id: @user.uid
-    @job.employer_id = @employer.id
-    @job.category_id = 1
-    @job.save!
+    if user_is :employer
+      @job = Job.new(job_params)
+      # add tags
+      @job.tag_list.add(params[:job][:tag_list].to_s.downcase, parse: true)
+      @job.employer_id = get_employer_id
+      @job.category_id = 1
+      @job.save!
+    end
     redirect_to root_path
   end
+
   def show
-    @job = Job.find params[:id]
-    if @job
+    if Job.exists? params[:id]
+      @job = Job.find params[:id]
       if Category.exists? @job.category_id
         @category = Category.find(@job.category_id).name
       end
       @employer = Employer.find(@job.employer_id).name
+    else
+      permission_denied #"Job Does Not Exist"
     end
+  end
+
+  def destroy
+    if user_is :employer
+      if employer_owns params[:id]
+        @job = Job.find params[:id]
+        flash[:error_message] = "Unable to delete" unless @job.delete
+      end
+    end
+    redirect_to employers_path
+  end
+
+  def update
+    if user_is :employer
+      if employer_owns params[:id]
+        @job = Job.find params[:id]
+        flash[:error_message] = "Unable to update" unless @job.update(job_params)
+      end
+    end
+    redirect_to employers_path
   end
 
   def get_tags_as_json

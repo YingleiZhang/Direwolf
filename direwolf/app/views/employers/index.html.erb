@@ -24,7 +24,13 @@
           <td><%= @jobs[x].title %></td>
           <td>
             <div class="btn-group">
-              <%= link_to "Show", "/job/"+@jobs[x].id.to_s, class: "btn btn-success btn-block" %>
+              <%= link_to "Show", "/job/"+@jobs[x].id.to_s, class: "btn btn-primary btn-block" %>
+            </div>
+            <div class="btn-group">
+              <%= link_to "Edit", "/job/"+@jobs[x].id.to_s+"/edit", class: "btn btn-success btn-block" %>
+            </div>
+            <div class="btn-group">
+              <%= link_to "Delete", "/job/"+@jobs[x].id.to_s, :method=> :delete, class: "btn btn-danger btn-block" %>
             </div>
           </td>
         </tr>
