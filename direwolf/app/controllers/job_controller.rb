@@ -8,6 +8,7 @@ class JobController < ApplicationController
   def create
     @job = Job.new(job_params)
     @user = User.find_by(session[:user_id])
+    # add tags
     flash[:uid] = @user.uid
     @employer = Employer.find_by user_id: @user.uid
     @job.employer_id = @employer.id

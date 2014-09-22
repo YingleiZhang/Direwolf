@@ -20,6 +20,7 @@
           <%= f.label :title, "Job Title:", class: "col-md-4 control-label", for: "jobTitle" %>
           <div class="col-md-4">
             <%= f.text_field :title, class: "form-control input-md", placeholder: "The Job's Title" %>
+            <span class="help-block">Every good job post has a title</span>
           </div>
         </div>
       </div>
@@ -32,14 +33,15 @@
             <option value="1">Option one</option>
             <option value="2">Option two</option>
           </select>
+          <span class="help-block">Select the Job's Category</span>
         </div>
       </div>
 
       <!-- Text input-->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="jobTags">Job Tags</label>
+          <%= f.label :tag_list, "Job Tags:", class: "col-md-4 control-label", for: "jobTags" %>
         <div class="col-md-4">
-          <input id="jobTags" name="jobTags" type="text" placeholder="Ruby, Rails, Management, etc." class="form-control input-md">
+          <%= f.text_field :tag_list, class: "form-control input-md", placeholder: "Tags (separated by commas)" %>
           <span class="help-block">Comma Separated List of Tags</span>
         </div>
       </div>

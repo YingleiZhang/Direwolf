@@ -4,4 +4,5 @@ class Job < ActiveRecord::Base
   validates :title, :presence=>true
   validates :employer_id, :presence=>true
   validates :category_id, :presence=>true
+  acts_as_taggable_on :tag_list
 end
