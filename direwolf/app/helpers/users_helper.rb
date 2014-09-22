@@ -3,22 +3,22 @@ module UsersHelper
     id = session[:user_id]
     if User.exists?(id)
       info = User.find(id)
-      should_be = :user
+      actually_is = :user
       if Seeker.exists?(user_id: info.uid)
-        should_be = :seeker
+        actually_is = :seeker
       else
         if Employer.exists?(user_id: info.uid)
-          should_be = :employer
+          actually_is = :employer
         else
           if Admin.exists?(user_id: info.uid)
-            should_be = :admin
+            actually_is = :admin
           else
-            should_be = nil
+            actually_is = nil
           end
         end
       end
     else
-      should_be = nil
+      actually_is = nil
     end
     if actually_is == should_be
       return :true
@@ -26,6 +26,15 @@ module UsersHelper
       return :false
     end
   end
+
+  def get_user_id
+    if User.exists?(session[:user_id])
+      uid = User.find(session[:user_id]).uid
+    else
+      uid = nil
+    end
+  end
+
 
 end
 
