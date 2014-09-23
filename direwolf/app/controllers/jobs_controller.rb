@@ -3,7 +3,12 @@ class JobsController < ApplicationController
   include EmployersHelper
 
   def index
-      permission_denied #"Job Does Not Exist"
+    if user_is :employer
+      @jobs = Job.where( employer_id: get_employer_id )
+    end
+    if user_is :seeker
+      @jobs = Job.all
+    end
   end
 
   def new

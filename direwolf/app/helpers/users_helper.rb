@@ -21,9 +21,9 @@ module UsersHelper
       actually_is = nil
     end
     if actually_is == should_be
-      return :true
+      return true
     else
-      return :false
+      return false
     end
   end
 
