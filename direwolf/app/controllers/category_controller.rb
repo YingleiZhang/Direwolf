@@ -24,6 +24,7 @@ class CategoryController < ApplicationController
   # POST /category.json
   def create
     @category = Category.new(category_params)
+    @category.name = params[:category][:name].to_s.camelcase
 
     respond_to do |format|
       if @category.save

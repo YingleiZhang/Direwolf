@@ -100,46 +100,33 @@
   <div class="col-md-4">
     <div class="panel panel-success">
       <div class="panel-heading">
-        <a href="#" class="pull-right">Create New Category</a>
+        <%= link_to 'View All Categories', category_index_path, class: "pull-right" %>
         <h3 class="panel-title">Categories</h3>
       </div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Category</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>@mdo</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>@fat</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>@twitter</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <% if !@categories.empty? %>
+        <table class="table">
+          <thead>
+          <tr>
+            <th class="col-sm-8">Name</th>
+            <th class="col-sm-4">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @categories.each do |category| %>
+            <tr>
+              <td>
+                <%= category.name %>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>

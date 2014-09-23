@@ -5,8 +5,9 @@ class AdminsController < ApplicationController
   # GET /admins.json
   def index
     @admins = Admin.all
-    @employer = Employer.all
-    @seeker = Seeker.all
+    @employers = Employer.all
+    @seekers = Seeker.all
+    @categories = Category.all
   end
 
   # GET /admins/1
