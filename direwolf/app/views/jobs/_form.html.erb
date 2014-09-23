@@ -31,10 +31,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="jobCategory">Job Category</label>
         <div class="col-md-4">
-          <select id="jobCategory" name="jobCategory" class="form-control">
-            <option value="1">Option one</option>
-            <option value="2">Option two</option>
-          </select>
+          <%= f.select(:category_id, options_for_select(@categories.map{ |c| [c.name, "#{c.id}:#{c.name}"] }), {}, {class: "form-control"}) %>
           <span class="help-block">Select the Job's Category</span>
         </div>
       </div>

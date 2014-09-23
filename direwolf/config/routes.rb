@@ -16,7 +16,7 @@ Direwolf::Application.routes.draw do
   post "job_applications/reject/:id", to: "job_applications#reject"
 
   # get all tags in json form
-  get "jobs/tags", to: "jobs#get_tags_as_json"
+  get "jobtags", to: "jobs#get_tags_as_json"
 
   get "sessions/create"
   get "sessions/destroy"

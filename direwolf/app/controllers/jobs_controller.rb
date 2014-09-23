@@ -1,12 +1,14 @@
 class JobsController < ApplicationController
 
   include EmployersHelper
+
   def index
       permission_denied #"Job Does Not Exist"
   end
 
   def new
     @job = Job.new
+    @categories = Category.all
   end
 
   def edit
@@ -24,7 +26,7 @@ class JobsController < ApplicationController
       # add tags
       @job.tag_list.add(params[:job][:tag_list].to_s.downcase, parse: true)
       @job.employer_id = get_employer_id
-      @job.category_id = 1
+      @job.category_id = params[:job][:category_id]
       @job.save
     end
     redirect_to employers_path
