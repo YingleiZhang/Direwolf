@@ -9,5 +9,7 @@ class JobApplicationsController < ApplicationController
 
   def show
     @apps = Application.find_by job_id: params[:id]
+    redirect_to job_application_show_path
   end
+
 end
