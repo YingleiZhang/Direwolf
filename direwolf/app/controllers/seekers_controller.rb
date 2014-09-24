@@ -1,10 +1,13 @@
 class SeekersController < ApplicationController
   before_action :set_seeker, only: [:show, :edit, :update, :destroy]
-
+include SeekersHelper
   # GET /seekers
   # GET /seekers.json
   def index
     @seekers = Seeker.all
+    @categories = Category.all
+    @profile = Profile.all
+    @jobs = Job.all
   end
 
   # GET /seekers/1

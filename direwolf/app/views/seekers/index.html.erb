@@ -29,7 +29,7 @@
         <td>
         <div class="btn-group">
           <%- #<button type="button" class="btn btn-success">Edit Profile</button> %>
-          <%= link_to "Edit Profile", edit_seeker_path(self), class: "btn btn-primary" %>
+          <%= link_to "Edit Profile", category_index_path, class: "btn btn-primary" %>
         </div>
         <td>
       </tr>
@@ -59,7 +59,7 @@
         <td>Software developer</td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-success">Status</button>
+            <%= link_to "Status", jobs_index_path, class: "btn btn-primary" %>
             <button type="button" class="btn btn-danger">Withdraw</button>
           </div>
         </td>
@@ -70,7 +70,7 @@
         <td>Sales</td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-success">Status</button>
+            <%= link_to "Status", jobs_index_path, class: "btn btn-primary" %>
             <button type="button" class="btn btn-danger">Withdraw</button>
           </div>
         </td>
@@ -81,7 +81,7 @@
         <td>Senior Manager</td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-success">Status</button>
+            <%= link_to "Status", jobs_index_path, class: "btn btn-primary" %>
             <button type="button" class="btn btn-danger">Withdraw</button>
           </div>
         </td>
