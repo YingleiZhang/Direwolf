@@ -20,6 +20,7 @@ class JobsController < ApplicationController
     if user_is :employer
       if employer_owns params[:id]
         @job = Job.find params[:id]
+        @categories = Category.all
       end
     end
     permission_denied unless @job
@@ -56,7 +57,7 @@ class JobsController < ApplicationController
         flash[:error_message] = "Unable to delete" unless @job.delete
       end
     end
-    redirect_to employers_path
+    redirect_to jobs_path
   end
 
   def update
@@ -66,7 +67,7 @@ class JobsController < ApplicationController
         flash[:error_message] = "Unable to update" unless @job.update(job_params)
       end
     end
-    redirect_to employers_path
+    redirect_to jobs_path
   end
 
   def get_tags_as_json

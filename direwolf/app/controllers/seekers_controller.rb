@@ -41,6 +41,9 @@ class SeekersController < ApplicationController
   # PATCH/PUT /seekers/1
   # PATCH/PUT /seekers/1.json
   def update
+
+    @seeker.tag_list.add(params[:tag_list][:tag_list].to_s.downcase, parse: true)
+
     respond_to do |format|
       if @seeker.update(seeker_params)
         format.html { redirect_to @seeker, notice: 'Seeker was successfully updated.' }

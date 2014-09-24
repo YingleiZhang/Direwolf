@@ -3,7 +3,7 @@ module UsersHelper
     id = session[:user_id]
     if User.exists?(id)
       info = User.find(id)
-      actually_is = :user
+
       if Seeker.exists?(user_id: info.uid)
         actually_is = :seeker
       else
@@ -25,6 +25,29 @@ module UsersHelper
     else
       return false
     end
+  end
+
+  def get_user_type
+
+    id = session[:user_id]
+
+    if User.exists?(id)
+      info = User.find(id)
+
+      if Seeker.exists?(user_id: info.uid)
+        return :seeker
+      end
+
+      if Employer.exists?(user_id: info.uid)
+        return :employer
+      end
+
+      if Admin.exists?(user_id: info.uid)
+        return :admin
+      end
+
+    end
+
   end
 
   def get_user_id

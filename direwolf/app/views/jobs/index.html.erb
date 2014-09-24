@@ -10,31 +10,31 @@
     </div>
     <table class="table table-striped">
       <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Actions</th>
-        </tr>
+      <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Actions</th>
+      </tr>
       </thead>
       <tbody>
       <% if @jobs %>
         <% @jobs.each_index do |x| %>
-        <tr>
-        <td class="col-md-1">
-          <%= x+1 %>
-        </td>
-        <td class="col-md-6">
-          <%= @jobs[x].title %>
-        </td>
-        <td class="col-md-5">
-          <div class="btn-group">
-            <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary" %>
-            <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success" %>
-            <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-          </div>
-        </td>
-        </tr>
-       <% end %>
+          <tr>
+            <td class="col-md-1">
+              <%= x+1 %>
+            </td>
+            <td class="col-md-6">
+              <%= @jobs[x].title %>
+            </td>
+            <td class="col-md-5">
+              <div class="btn-group">
+                <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary" %>
+                <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success" %>
+                <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
       </tbody>
     </table>
