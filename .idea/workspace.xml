@@ -2,6 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00bea04e-12b8-4817-897a-b516f3d1c6f7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/db/migrate/20140924053938_create_profiles.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/views/profiles/_form.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/views/profiles/edit.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/views/profiles/index.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/views/profiles/index.json.jbuilder" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/views/profiles/new.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/models/profile.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/test/models/profile_test.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/assets/stylesheets/profiles.css.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/assets/javascripts/profiles.js.coffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/test/fixtures/profiles.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/controllers/profiles_controller.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/test/controllers/profiles_controller_test.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/helpers/profiles_helper.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/test/helpers/profiles_helper_test.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/assets/stylesheets/scaffolds.css.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/views/profiles/show.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/direwolf/app/views/profiles/show.json.jbuilder" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/direwolf/config/routes.rb" afterPath="$PROJECT_DIR$/direwolf/config/routes.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -466,14 +484,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
