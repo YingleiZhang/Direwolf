@@ -8,6 +8,7 @@ include SeekersHelper
     @categories = Category.all
     @profile = Profile.all
     @jobs = Job.all
+    @employers = Employer.all
   end
 
   # GET /seekers/1
