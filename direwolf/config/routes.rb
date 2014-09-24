@@ -8,6 +8,7 @@ Direwolf::Application.routes.draw do
 
   resources :admins, only: [:index, :new, :create]
   resources :employers, only: [:index, :new, :create]
+  resources :seekers, only: [:index, :new, :create,:edit]
   resources :category, only: [:index, :destroy, :create]
   resources :jobs
   resources :job_applications

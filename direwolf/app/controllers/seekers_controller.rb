@@ -19,6 +19,7 @@ class SeekersController < ApplicationController
 
   # GET /seekers/1/edit
   def edit
+    @seeker = Seeker.edit
   end
 
   # POST /seekers
