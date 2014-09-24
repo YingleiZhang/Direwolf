@@ -46,6 +46,8 @@ module UsersHelper
         return :admin
       end
 
+      return nil
+
     end
 
   end

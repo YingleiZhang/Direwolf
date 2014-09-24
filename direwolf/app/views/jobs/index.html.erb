@@ -6,20 +6,20 @@
     <table class="table table-striped">
       <tbody>
       <% if @jobs %>
-        <% @jobs.each_index do |x| %>
+        <% @jobs.each_index do | job | %>
           <tr>
             <td class="col-md-1">
-              <%= x+1 %>
+              <%= job + 1 %>
             </td>
             <td class="col-md-6">
-              <%= @jobs[x].title %>
+              <%= @jobs[job].title %>
             </td>
             <td class="col-md-5">
               <div class="btn-group">
-                <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary" %>
+                <%= link_to "Show", job_path(@jobs[job].id), class: "btn btn-primary" %>
                 <% if @user_type == :employer %>
-                  <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success" %>
-                  <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                  <%= link_to "Edit", edit_job_path(@jobs[job].id), class: "btn btn-success" %>
+                  <%= link_to "Delete", job_path(@jobs[job].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                 <% end %>
               </div>
             </td>

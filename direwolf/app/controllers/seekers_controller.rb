@@ -29,7 +29,7 @@ class SeekersController < ApplicationController
 
     respond_to do |format|
       if @seeker.save
-        format.html { redirect_to @seeker, notice: 'Seeker was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Seeker was successfully created.' }
         format.json { render action: 'show', status: :created, location: @seeker }
       else
         format.html { render action: 'new' }
