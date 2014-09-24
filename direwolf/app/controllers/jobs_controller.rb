@@ -1,8 +1,12 @@
 class JobsController < ApplicationController
 
+  include UsersHelper
   include EmployersHelper
 
   def index
+
+    @user_type = get_user_type
+
     if user_is :employer
       @jobs = Job.where( employer_id: get_employer_id )
     end
@@ -35,7 +39,7 @@ class JobsController < ApplicationController
       @job.category_id = params[:job][:category_id]
       @job.save
     end
-    redirect_to employers_path
+    redirect_to jobs_path
   end
 
   def show

@@ -14,10 +14,10 @@ module EmployersHelper
   def employer_owns job_id
     if user_is :employer
       if Job.find(job_id).employer_id == get_employer_id
-        return :true
+        return true
       end
     end
-    return :false
+    return false
   end
 
 end
