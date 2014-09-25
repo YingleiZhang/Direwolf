@@ -1,12 +1,14 @@
 class SeekersController < ApplicationController
   before_action :set_seeker, only: [:show, :edit, :update, :destroy]
-include SeekersHelper
+
+  include SeekersHelper
+  include ActsAsTaggableOn::TagsHelper
+
   # GET /seekers
   # GET /seekers.json
   def index
-    @seekers = Seeker.all
+    @seeker = Seeker.find(get_seeker_id)
     @categories = Category.all
-    @profile = Profile.all
     @jobs = Job.all
     @employers = Employer.all
   end
@@ -78,6 +80,6 @@ include SeekersHelper
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seeker_params
-      params.require(:seeker).permit(:name)
+      params.require(:seeker).permit(:name, :email, :phone, :skills, :resume)
     end
 end

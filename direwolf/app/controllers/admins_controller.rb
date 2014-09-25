@@ -1,9 +1,17 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
+  include AdminsHelper
+  include UsersHelper
+
   # GET /admins
   # GET /admins.json
   def index
+
+    if !(user_is :admin)
+      permission_denied
+    end
+    @admin = Admin.find(get_admin_id)
     @admins = Admin.all
     @employers = Employer.all
     @seekers = Seeker.all
@@ -29,6 +37,12 @@ class AdminsController < ApplicationController
   def create
     @admin = Admin.new(admin_params)
     @admin.user_id = User.find(session[:user_id]).uid
+
+    if Admin.any?
+      @admin.pending = true
+    else
+      @admin.pending = false
+    end
 
     respond_to do |format|
       if @admin.save
@@ -73,6 +87,6 @@ class AdminsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
-      params.require(:admin).permit(:name)
+      params.require(:admin).permit(:name, :email)
     end
 end

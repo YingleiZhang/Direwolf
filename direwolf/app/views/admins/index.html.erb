@@ -1,270 +1,164 @@
-<div class="row">
-  <div class="col-md-4">
-    <div class="panel panel-warning">
-      <div class="panel-heading">
-        <h3 class="panel-title">Pending Admin Requests</h3>
+<% if @admin.pending %>
+  <div class="alert alert-danger" role="alert">
+    Your status is pending, you will be able to view this once your application has been accepted.
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Pending Admin Requests</h3>
+        </div>
+        <% if !@admins.empty? %>
+          <table class="table">
+            <tbody>
+            <% @admins.where(:pending => true).each do | admin | %>
+              <tr>
+                <td>
+                  <%= admin.name %>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <%= link_to "Accept", admin_path(admin), :method=> :update, :pending => false, data: {confirm: 'Accept Admin?'}, class: "btn btn-success" %>
+                    <%= link_to "Reject", admin_path(admin), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="panel-body">
+            <div class="alert alert-success" role="alert">No pending admin requests!</div>
+          </div>
+        <% end %>
       </div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>@mdo</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>@fat</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>@twitter</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Pending Employer Requests</h3>
+        </div>
+        <% if !@employers.empty? %>
+          <table class="table">
+            <tbody>
+            <% @employers.where(:pending => true).each do | employer | %>
+              <tr>
+                <td>
+                  <%= employer.name %>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <%= link_to "Accept", employer_path(employer), :method=> :update, :pending => false, data: {confirm: 'Accept Admin?'}, class: "btn btn-success" %>
+                    <%= link_to "Reject", employer_path(employer), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="panel-body">
+            <div class="alert alert-success" role="alert">No pending employer requests!</div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <%= link_to 'View All Categories', category_index_path, class: "pull-right" %>
+          <h3 class="panel-title">Categories</h3>
+        </div>
+        <% if !@categories.empty? %>
+          <table class="table">
+            <tbody>
+            <% @categories.each do |category| %>
+              <tr>
+                <td>
+                  <%= category.name %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="panel panel-warning">
-      <div class="panel-heading">
-        <h3 class="panel-title">Pending Employer Requests</h3>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Admins</h3>
+        </div>
+        <% if !@admins.empty? %>
+          <table class="table">
+            <tbody>
+            <% @admins.where(:pending => false).each do | admin | %>
+              <tr>
+                <td>
+                  <%= admin.name %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% end %>
       </div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>@mdo</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>@fat</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>@twitter</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
     </div>
-  </div>
 
-  <div class="col-md-4">
-    <div class="panel panel-success">
-      <div class="panel-heading">
-        <%= link_to 'View All Categories', category_index_path, class: "pull-right" %>
-        <h3 class="panel-title">Categories</h3>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Employers</h3>
+        </div>
+        <% if !@employers.empty? %>
+          <table class="table">
+            <tbody>
+            <% @employers.where(:pending => false).each do | employer | %>
+              <tr>
+                <td>
+                  <%= employer.name %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="panel-body">
+            No registered employers!
+          </div>
+        <% end %>
       </div>
-      <% if !@categories.empty? %>
-        <table class="table">
-          <tbody>
-          <% @categories.each do |category| %>
-            <tr>
-              <td>
-                <%= category.name %>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      <% end %>
     </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-4">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Administrator Table</h3>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Job Seekers</h3>
+        </div>
+        <% if !@seekers.empty? %>
+          <table class="table">
+            <tbody>
+            <% @seekers.each do | seeker | %>
+              <tr>
+                <td>
+                  <%= seeker.name %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="panel-body">
+            No registered job seekers!
+          </div>
+        <% end %>
       </div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>@mdo</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>@fat</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>@twitter</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
     </div>
   </div>
-
-  <div class="col-md-4">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Employer Table</h3>
-      </div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>@mdo</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>@fat</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>@twitter</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Job Seeker Table</h3>
-      </div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>@mdo</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>@fat</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>@twitter</td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-success">Show</button>
-              <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+<% end %>
