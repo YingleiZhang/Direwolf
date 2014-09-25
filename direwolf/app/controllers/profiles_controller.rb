@@ -9,6 +9,7 @@ class ProfilesController < ApplicationController
   def index
     @profiles = Profile.all
     @type = UsersController.new( session[:user_id] ).type
+    @seekers = Seeker.all
   end
 
   # GET /profiles/1
