@@ -55,6 +55,18 @@ class AdminsController < ApplicationController
     end
   end
 
+  def accept
+    @admin = Admin.find params[:id]
+    @admin.pending = false
+
+    if @admin.save
+      redirect_to root_path
+    else
+      flash[:error_message] = "Admin Update Unsuccessful"
+      redirect_to root_path
+    end
+  end
+
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
@@ -74,7 +86,7 @@ class AdminsController < ApplicationController
   def destroy
     @admin.destroy
     respond_to do |format|
-      format.html { redirect_to admins_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end
