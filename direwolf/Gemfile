@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Rspec
+gem 'rspec-rails'
+
 # Use tags
 gem 'acts-as-taggable-on'
 
