@@ -9,7 +9,7 @@ class SeekersController < ApplicationController
   def index
     @seeker = Seeker.find(get_seeker_id)
     @categories = Category.all
-    @applied_jobs = JobApplication.where( seeker_id: get_seeker_id).take(1000)
+    @job_applications = JobApplication.where( seeker_id: get_seeker_id).take(1000)
     @recommend_jobs = Job.tagged_with(@seeker.application_list, :any => true)
     @employers = Employer.all
   end
