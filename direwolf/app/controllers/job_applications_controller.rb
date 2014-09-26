@@ -15,7 +15,15 @@ class JobApplicationsController < ApplicationController
 
   def create
       @app = JobApplication.new(job_params)
-      if !@app.save
+
+      job = Job.find(@app.job_id)
+      tag_list = job.tag_list
+      seeker = Seeker.find(@app.seeker_id)
+
+      puts "#{seeker.name} is applying for: " + tag_list.to_s
+      seeker.application_list.add(tag_list.to_s, parse: true)
+
+      if !@app.save or !seeker.save
         flash[:error_message] = "Unable to apply for job"
       end
       redirect_to root_path

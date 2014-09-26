@@ -47,22 +47,30 @@
     </div>
     <table class="table table-striped">
       <tbody>
-      <% if @job_application %>
-          <% @job_application.each_index do |x| %>
-              <tr>
-                <td class="col-md-1">
-                  <%= x+1 %>
-                </td>
-                <td class="col-md-6">
-                  <%= @job_application[x].title %>
-                </td>
-                <td>
-                  <%@job_application[x].status%>
-                </td>
-              </tr>
+      <% if @applied_jobs.any? %>
+        <table class="table table-striped">
+          <tbody>
+          <% @applied_jobs.each_index do | job | %>
+            <tr>
+              <td class="col-md-1">
+                <%= job + 1 %>
+              </td>
+              <td class="col-md-10">
+                <%= @applied_jobs[job].title %>
+                <br/>
+                <% @applied_jobs[job].tag_list.each do |tag|%>
+                  <span class="label label-danger"><%= tag %></span>
+                <%end%>
+              </td>
+              <td class="col-md-1">
+                <%= link_to "Show", job_path(@applied_jobs[job].id), class: "btn btn-primary pull-right" %>
+              </td>
+            </tr>
           <% end %>
-      <%else%>
-      <tr></tr>
+
+          </tbody>
+        </table>
+      <% else %>
       <tr>
         <div class="alert alert-danger" role="alert">
           You haven't applied for any jobs.
@@ -82,23 +90,23 @@
     <div class="panel-heading">
       <h3 class="panel-title">Recommended Jobs</h3>
     </div>
-    <% if @jobs.any? %>
+    <% if @recommend_jobs.any? %>
       <table class="table table-striped">
         <tbody>
-        <% @jobs.each_index do | job | %>
+        <% @recommend_jobs.each_index do | job | %>
           <tr>
             <td class="col-md-1">
               <%= job + 1 %>
             </td>
             <td class="col-md-10">
-              <%= @jobs[job].title %>
+              <%= @recommend_jobs[job].title %>
               <br/>
-              <% @jobs[job].tag_list.each do |tag|%>
+              <% @recommend_jobs[job].tag_list.each do |tag|%>
                 <span class="label label-danger"><%= tag %></span>
               <%end%>
             </td>
             <td class="col-md-1">
-              <%= link_to "Show", job_path(@jobs[job].id), class: "btn btn-primary pull-right" %>
+              <%= link_to "Show", job_path(@recommend_jobs[job].id), class: "btn btn-primary pull-right" %>
             </td>
           </tr>
         <% end %>
