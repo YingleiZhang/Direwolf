@@ -72,7 +72,7 @@ class JobsController < ApplicationController
         flash[:error_message] = "Unable to delete" unless @job.delete
       end
     end
-    redirect_to jobs_path
+    redirect_to root_path
   end
 
   def update
@@ -83,7 +83,7 @@ class JobsController < ApplicationController
         flash[:error_message] = "Unable to update" unless @job.update(job_params)
       end
     end
-    redirect_to jobs_path
+    redirect_to root_path
   end
 
   def get_tags_as_json
