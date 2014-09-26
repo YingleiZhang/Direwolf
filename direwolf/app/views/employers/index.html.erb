@@ -1,11 +1,20 @@
-<div class="col-md-3">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"><%=@employer.company_name%>'s Profile</h3>
-    </div>
+<% if @employer.pending %>
+<div class="row">
+  <div class="alert alert-danger" role="alert">
+    Your status is pending, you will be able to view this once your application has been accepted.
+  </div>
+</div>
+<% end %>
 
-    <div class="panel-body">
-      <%if @employer%>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%=@employer.company_name%>'s Profile</h3>
+      </div>
+
+      <div class="panel-body">
+        <%if @employer%>
           <form class="form" role="form">
             <table>
               <td>
@@ -14,26 +23,19 @@
                   <p class="form-control-static"><%= @employer.email %></p>
                 </div>
               </td>
-              <td>  </td>
-                <div class="form-group">
-                  <label class="control-label">Contact:</label>
-                  <p class="form-control-static"><%= @employer.name %></p>
-                </div>
+              <div class="form-group">
+                <label class="control-label">Contact:</label>
+                <p class="form-control-static"><%= @employer.name %></p>
+              </div>
             </table>
           </form>
           <%= link_to "Edit Profile", edit_employer_path(@employer.id), class: " btn btn-primary" %>
-          </div>
-      <%end%>
       </div>
+        <%end%>
+    </div>
   </div>
-
-<div class="col-md-21">
-<% if @employer.pending %>
-  <div class="alert alert-danger" role="alert">
-    Your status is pending, you will be able to view this once your application has been accepted.
-  </div>
-<% else %>
-  <div class="col-md-offset-4 col-md-22">
+<% if !@employer.pending %>
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Jobs Table</h3>
