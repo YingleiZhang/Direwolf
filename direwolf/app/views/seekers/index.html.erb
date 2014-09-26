@@ -58,17 +58,15 @@
                 <td class="col-md-1">
                   <%= x+1 %>
                 </td>
-                <%if false%>
                 <td class="col-md-6">
-                  <%= @job_applications[x].title %>
+                  <%= @job_applications[x].id %>
                 </td>
-                    <%end%>
                 <td>
                   <%@job_applications[x].status_id%>
                 </td>
                 <td>
                   <div class="btn-group">
-                    <%= link_to 'Withdraw', @job_applications[x], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                    <%= link_to 'Show', job_application_path(@job_applications[x].id), class: "btn btn-danger" %>
                   </div>
                 </td>
               </tr>
