@@ -1,17 +1,27 @@
 Direwolf::Application.routes.draw do
 
 
-  resources :employers
-  resources :admins
-  resources :users
-  resources :seekers
+  # resources :admins, only: [:index, :new, :create]
+  # resources :employers, only: [:index, :new, :create]
+  # resources :seekers, only: [:index, :new, :create, :edit]
+  # resources :category, only: [:index, :destroy, :create]
 
-  resources :admins, only: [:index, :new, :create]
-  resources :employers, only: [:index, :new, :create]
-  resources :seekers, only: [:index, :new, :create,:edit]
-  resources :category, only: [:index, :destroy, :create]
+
+  resources :admins
+  resources :employers
+  resources :seekers
+  resources :users
   resources :jobs
   resources :job_applications
+  resources :category
+
+  # Handles accept/reject employer
+  put "accept_employer/:id", to: "employers#accept"
+  delete "reject_employer/:id", to: "employers#destroy"
+
+  # Handles accept/reject admin
+  put "accept_admin/:id", to: "admins#accept"
+  delete "reject_admin/:id", to: "admins#destroy"
 
   post "job_applications/select/:id", to: "job_applications#select"
   post "job_applications/reject/:id", to: "job_applications#reject"

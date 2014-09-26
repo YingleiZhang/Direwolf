@@ -19,8 +19,8 @@
                 </td>
                 <td>
                   <div class="btn-group">
-                    <%= link_to "Accept", admin_path(admin), :method=> :update, :pending => false, data: {confirm: 'Accept Admin?'}, class: "btn btn-success" %>
-                    <%= link_to "Reject", admin_path(admin), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                    <%= link_to "Accept", "accept_admin/" + admin.id.to_s, :method => :put, class: "btn btn-success" %>
+                    <%= link_to "Reject", "reject_admin/" + admin.id.to_s, :method => :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                   </div>
                 </td>
               </tr>
@@ -50,8 +50,8 @@
                 </td>
                 <td>
                   <div class="btn-group">
-                    <%= link_to "Accept", employer_path(employer), :method=> :update, :pending => false, data: {confirm: 'Accept Admin?'}, class: "btn btn-success" %>
-                    <%= link_to "Reject", employer_path(employer), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                    <%= link_to "Accept", "accept_employer/" + employer.id.to_s, :method => :put, class: "btn btn-success" %>
+                    <%= link_to "Reject", "reject_employer/" + employer.id.to_s, :method => :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                   </div>
                 </td>
               </tr>
@@ -118,11 +118,20 @@
         </div>
         <% if !@employers.empty? %>
           <table class="table">
+            <thead>
+            <tr>
+              <th>Contact Name</th>
+              <th>Company</th>
+            </tr>
+            </thead>
             <tbody>
             <% @employers.where(:pending => false).each do | employer | %>
               <tr>
                 <td>
                   <%= employer.name %>
+                </td>
+                <td>
+                  <%= employer.company_name %>
                 </td>
               </tr>
             <% end %>
