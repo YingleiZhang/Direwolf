@@ -20,13 +20,6 @@ ActiveRecord::Schema.define(version: 20140925010634) do
     t.boolean "pending"
   end
 
-  create_table "applications", force: true do |t|
-    t.integer "job_id",      null: false
-    t.integer "employer_id", null: false
-    t.integer "seeker_id",   null: false
-    t.integer "status_id",   null: false
-  end
-
   create_table "categories", force: true do |t|
     t.string "name", null: false
   end
@@ -37,6 +30,16 @@ ActiveRecord::Schema.define(version: 20140925010634) do
     t.string  "company_name"
     t.string  "email"
     t.boolean "pending"
+  end
+
+  create_table "job_applications", force: true do |t|
+    t.integer  "job_id",       null: false
+    t.integer  "employer_id",  null: false
+    t.integer  "seeker_id",    null: false
+    t.integer  "status_id",    null: false
+    t.text     "cover_letter"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "jobs", force: true do |t|
