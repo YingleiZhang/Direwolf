@@ -57,12 +57,12 @@
 
       <%if employer_owns @job.id %>
         <div class="btn-group">
-          <%= link_to "Manage Applications", job_application_path(:job_id=>@job.id), class: "btn btn-success" %>
+          <%= link_to "Manage Applications", job_applications_path(:job_id=>@job.id), class: "btn btn-success" %>
           <%= link_to "Edit", edit_job_path(:id => @job.id), class: "btn btn-primary" %>
           <%= link_to "Delete", job_path(:id => @job.id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
         </div>
       <%end%>
-      <%if get_user_type == :seeker %>
+      <%if user_is :seeker %>
         <%= link_to "Apply", new_job_application_path(:job_id=>@job.id), class: "btn btn-success btn-block" %>
       <%end%>
       <%if get_user_type.nil? %>

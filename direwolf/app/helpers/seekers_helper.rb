@@ -13,8 +13,9 @@ module SeekersHelper
   end
 
   def seeker_owns application_id
-    if user_is :seeker
-      if Application.find(application_id).seeker_id == get_seeker_id
+    id = get_seeker_id
+    if id
+      if Application.find(application_id).seeker_id == id
         return :true
       end
     end

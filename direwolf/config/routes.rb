@@ -22,7 +22,7 @@ Direwolf::Application.routes.draw do
   put "accept_admin/:id", to: "admins#accept"
   delete "reject_admin/:id", to: "admins#destroy"
 
-  post "job_applications/select/:id", to: "job_applications#select"
+  post "job_applications/accept/:id", to: "job_applications#accept"
   post "job_applications/reject/:id", to: "job_applications#reject"
 
   # get all tags in json form

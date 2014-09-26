@@ -1,33 +1,76 @@
-<div class="col-md-4">
-  <div class="panel panel-primary">
+<div class="col-md-offset-2 col-md-8">
+  <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Applications</h3>
+      <h3 class="panel-title">Job Application</h3>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Applicant Name</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% if @apps %>
-        <% @apps.each_index do |x| %>
-        <tr>
-        <td><%=x+1%></td>
-        <% seeker = Seeker.find(@apps[x].seeker_id)%>
-        <td><%= link_to seeker.name, seeker_path(seeker.id), class: "btn btn-primary btn-block" %></td>
-        <td>
-          <div class="btn-group">
-            <%= link_to "Process", edit_job_application_path(@apps[x].id), class: "btn btn-success btn-block" %>
+    <div class="panel-body">
+      <%if @app%>
+
+        <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Job Title:</label>
+          <div class="col-sm-9">
+            <%= link_to @job.title, job_path(@job.id) %>
           </div>
-        </td>
-      </tr>
-    <% end %>
-    <% end %>
-      </tbody>
-    </table>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Status:</label>
+          <div class="col-sm-9">
+              <p class="form-control-static"><%= @app.status_id %></p>
+            </div>
+          </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Job Seeker:</label>
+          <div class="col-sm-9">
+            <p class="form-control-static"><%= @seeker.name %></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Company:</label>
+          <div class="col-sm-9">
+              <p class="form-control-static"><%= @employer.company_name %></p>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Cover Letter:</label>
+            <div class="col-sm-9">
+              <p class="form-control-static"><%= @app.cover_letter %></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Tags:</label>
+            <div class="col-sm-9">
+              <p class="form-control-static">
+                <% @job.tag_list.each do |tag|%>
+                  <span class="label label-danger"><%= tag %></span>
+                <%end%>
+              </p>
+            </div>
+          </div>
+
+        </form>
+    </div>
+
+      <%if employer_owns @job.id %>
+        <div class="btn-group">
+          <%= link_to "Accept", "/job_applications/accept/"+@app.id.to_s, :method=> :post, class: "btn btn-success" %>
+          <%= link_to "Reject", "/job_applications/reject/"+@app.id.to_s, :method=> :post, class: "btn btn-danger" %>
+          <%= link_to_function "Back", "history.back()", class: "btn btn-primary" %>
+        </div>
+      <%else%>
+      <%if seeker_owns @app.id %>
+        <div class="btn-group">
+        <%= link_to "Withdraw", job_application_path(@app.id), :method=> :delete, class: "btn btn-success btn-block" %>
+        <%= link_to "Edit", edit_job_application_path(@app.id), class: "btn btn-success btn-block" %>
+        <%= link_to_function "Back", "history.back()", class: "btn btn-primary" %>
+        </div>
+      <%end%>
+      <%end%>
+    <%end%>
   </div>
 </div>
-
