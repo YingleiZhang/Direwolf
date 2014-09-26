@@ -15,7 +15,6 @@ class JobApplicationsController < ApplicationController
 
   def create
       @app = JobApplication.new(job_params)
-      @app.status_id = :true
       if !@app.save
         flash[:error_message] = "Unable to apply for job"
       end
