@@ -71,6 +71,12 @@ class EmployersController < ApplicationController
   # DELETE /employers/1
   # DELETE /employers/1.json
   def destroy
+    Job.where(employer_id: @employer.id).each do |job|
+      JobApplication.where(job_id: job.id).each do |app|
+        app.delete
+      end
+      job.delete
+    end
     @employer.destroy
     respond_to do |format|
       format.html { redirect_to root_path }
