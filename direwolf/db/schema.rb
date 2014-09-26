@@ -11,11 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924053938) do
+ActiveRecord::Schema.define(version: 20140925010634) do
 
   create_table "admins", force: true do |t|
-    t.string "user_id", null: false
-    t.string "name"
+    t.string  "user_id", null: false
+    t.string  "name"
+    t.string  "email"
+    t.boolean "pending"
   end
 
   create_table "applications", force: true do |t|
@@ -30,8 +32,11 @@ ActiveRecord::Schema.define(version: 20140924053938) do
   end
 
   create_table "employers", force: true do |t|
-    t.string "user_id", null: false
-    t.string "name"
+    t.string  "user_id",      null: false
+    t.string  "name"
+    t.string  "company_name"
+    t.string  "email"
+    t.boolean "pending"
   end
 
   create_table "jobs", force: true do |t|
@@ -40,22 +45,12 @@ ActiveRecord::Schema.define(version: 20140924053938) do
     t.integer "category_id", null: false
   end
 
-  create_table "profiles", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone_number"
-    t.string   "skills"
-    t.string   "resume"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "seekers", force: true do |t|
-    t.string  "user_id",                      null: false
-    t.binary  "resume",      limit: 10485760
-    t.string  "resume_type"
+    t.string  "user_id", null: false
     t.integer "phone"
     t.string  "name"
+    t.string  "email"
+    t.text    "resume"
   end
 
   create_table "statuses", force: true do |t|
