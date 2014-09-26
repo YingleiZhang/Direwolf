@@ -1,0 +1,55 @@
+<%= form_for @app, :html => {:class => "form-horizontal center"} do |f| %>
+  <% if @app.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@app.errors.count, "error") %> prohibited this employer from being saved:</h2>
+
+    <ul>
+    <% @app.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <form class="form-horizontal">
+    <fieldset>
+
+      <legend><%= title %></legend>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Job Title:</label>
+        <div class="col-md-4">
+          <p class="form-control-static"><%=@job.title%></p>
+        </div>
+      </div>
+      <%= hidden_field_tag :job_id, @job.id %>
+      <%= hidden_field_tag :employer_id, @job.id %>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Employer:</label>
+        <div class="col-md-4">
+          <p class="form-control-static"><%=@employer.company_name%></p>
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :cover_letter, "Cover Letter:", class: "col-md-4 control-label" %>
+          <div class="col-md-4">
+            <%= f.text_area :cover_letter, class: "form-control input-md", rows: "10", placeholder: "Paste cover letter here" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="submit"></label>
+        <div class="col-md-4">
+          <%= f.submit "Save", class: "btn btn-default btn-primary" %>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+
+<% end %>
