@@ -14,7 +14,6 @@ Direwolf::Application.routes.draw do
   resources :jobs
   resources :job_applications
   resources :category
-
   # Handles accept/reject employer
   put "accept_employer/:id", to: "employers#accept"
   delete "reject_employer/:id", to: "employers#destroy"
