@@ -24,6 +24,7 @@ class EmployersController < ApplicationController
 
   # GET /employers/1/edit
   def edit
+    @employer = Employer.find params[:id]
   end
 
   # POST /employers
@@ -41,12 +42,24 @@ class EmployersController < ApplicationController
     end
   end
 
+  def accept
+    @employer = Employer.find params[:id]
+    @employer.pending = false
+
+    if @employer.save
+      redirect_to root_path
+    else
+      flash[:error_message] = "Employer Update Unsuccessful"
+      redirect_to root_path
+    end
+  end
+
   # PATCH/PUT /employers/1
   # PATCH/PUT /employers/1.json
   def update
     respond_to do |format|
       if @employer.update(employer_params)
-        format.html { redirect_to @employer, notice: 'Employer was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Employer was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -60,7 +73,7 @@ class EmployersController < ApplicationController
   def destroy
     @employer.destroy
     respond_to do |format|
-      format.html { redirect_to employers_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end
