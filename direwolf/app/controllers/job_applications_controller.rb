@@ -20,9 +20,12 @@ class JobApplicationsController < ApplicationController
       seeker = Seeker.find(@app.seeker_id)
 
       seeker.application_list.add(tag_list.to_s, parse: true)
-
-      if !@app.save or !seeker.save
-        flash[:error_message] = "Unable to apply for job"
+      if JobApplication.find_by( seeker_id: @app.seeker_id, job_id: @app.job_id).nil?
+        if !@app.save or !seeker.save
+          flash[:error_message] = "Unable to apply for job"
+        end
+      else
+        flash[:error_message] = "You have already applied to that job!"
       end
       redirect_to root_path
   end
