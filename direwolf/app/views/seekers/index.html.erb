@@ -48,30 +48,24 @@
     <table class="table table-striped">
       <tbody>
       <% if @job_applications %>
-      <%if false%>
-      <% if !@job_applications.respond_to? :each_index %>
-      <% @job_applications = [@job_applications] %>
-              <%end%>
-              <%end%>
           <% @job_applications.each_index do |x| %>
               <tr>
                 <td class="col-md-1">
                   <%= x+1 %>
                 </td>
                 <td class="col-md-6">
-                  <%= @job_applications[x].id %>
+                  <%= Job.find(@job_applications[x].job_id).title %>
                 </td>
                 <td>
                   <%@job_applications[x].status_id%>
                 </td>
                 <td>
                   <div class="btn-group">
-                    <%= link_to 'Show', job_application_path(@job_applications[x].id), class: "btn btn-danger" %>
+                    <%= link_to 'Show', job_application_path(@job_applications[x].id), class: "btn btn-primary" %>
                   </div>
                 </td>
               </tr>
           <% end %>
-
           </tbody>
         </table>
       <% else %>
