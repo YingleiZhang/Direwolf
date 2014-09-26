@@ -17,6 +17,7 @@ class CreateFramework < ActiveRecord::Migration
 
     create_table :jobs do |t|
       t.string :title, :null=>false
+      t.text :description
       t.references :employer, :null=>false
       t.references :category, :null=>false
     end

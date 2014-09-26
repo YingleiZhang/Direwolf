@@ -47,9 +47,9 @@
 
       <!-- Textarea -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="textarea">Job Description</label>
+        <%= f.label :description, "Job Description:", class: "col-md-4 control-label", for: "job_description" %>
         <div class="col-md-4">
-          <textarea class="form-control" id="textarea" name="textarea" placeholder="Place job description text here"></textarea>
+          <%= f.text_area :description, class: "form-control input-md", rows: "10", placeholder: "Enter job description." %>
         </div>
       </div>
 
