@@ -4,18 +4,21 @@ class JobApplicationsController < ApplicationController
     if(params[:job_id])
       @job = Job.find(params[:job_id])
       if @job
-      @app = JobApplication.new
-      @app.job_id = params[:job_id]
-      @employer = Employer.find(@job.employer_id)
-      @app.employer_id = @employer.id
-      @app.status_id = "pending"
+        @app = JobApplication.new
+        @employer = Employer.find @job.employer_id
+        @seeker_id = get_seeker_id
+      else
+        redirect_to ll
       end
     end
   end
 
   def create
-      @app.seeker_id = get_seeker_id
-      @app.save
+      @app = JobApplication.new(job_params)
+      @app.status_id = :true
+      if !@app.save
+        flash[:error_message] = "Unable to apply for job"
+      end
       redirect_to root_path
   end
 
@@ -37,7 +40,7 @@ class JobApplicationsController < ApplicationController
 
   private
   def job_params
-    params[:job_application].permit(:cover_letter)
+    params[:job_application].permit(:cover_letter, :employer_id, :job_id, :seeker_id)
   end
 end
 
