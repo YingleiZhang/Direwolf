@@ -10,7 +10,10 @@ class SeekersController < ApplicationController
     @seeker = Seeker.find(get_seeker_id)
     @categories = Category.all
     @job_applications = JobApplication.where( seeker_id: get_seeker_id).take(1000)
-    @recommend_jobs = Job.tagged_with(@seeker.application_list, :any => true)
+    jobs_applied_for = Job
+    @recommend_jobs = Job.tagged_with(@seeker.application_list, :any => true) - @job_applications.map do |an_application|
+      Job.find(an_application.job_id)
+    end
     @employers = Employer.all
   end
 
