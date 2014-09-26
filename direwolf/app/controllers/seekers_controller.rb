@@ -25,7 +25,7 @@ class SeekersController < ApplicationController
 
   # GET /seekers/1/edit
   def edit
-    @seeker = Seeker.edit
+    @seeker = Seeker.find params[:id]
   end
 
   # POST /seekers
@@ -33,6 +33,7 @@ class SeekersController < ApplicationController
   def create
     @seeker = Seeker.new(seeker_params)
     @seeker.user_id = User.find(session[:user_id]).uid
+    @seeker.skill_list.add(params[:seeker][:skill_list].to_s.downcase, parse: true)
 
     respond_to do |format|
       if @seeker.save
@@ -49,11 +50,11 @@ class SeekersController < ApplicationController
   # PATCH/PUT /seekers/1.json
   def update
 
-    @seeker.tag_list.add(params[:tag_list][:tag_list].to_s.downcase, parse: true)
+    @seeker.skill_list = params[:seeker][:skill_list].to_s.downcase
 
     respond_to do |format|
       if @seeker.update(seeker_params)
-        format.html { redirect_to @seeker, notice: 'Seeker was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Seeker was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
