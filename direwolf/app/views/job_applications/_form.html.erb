@@ -22,8 +22,9 @@
           <p class="form-control-static"><%=@job.title%></p>
         </div>
       </div>
-      <%= hidden_field_tag :job_id, @job.id %>
-      <%= hidden_field_tag :employer_id, @job.id %>
+      <%= f.hidden_field :job_id, :value => @job.id %>
+      <%= f.hidden_field :employer_id, :value => @employer.id %>
+      <%= f.hidden_field :seeker_id, :value => @seeker_id %>
       <div class="form-group">
         <label class="col-md-4 control-label">Employer:</label>
         <div class="col-md-4">

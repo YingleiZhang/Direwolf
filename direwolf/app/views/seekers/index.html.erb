@@ -47,21 +47,17 @@
     </div>
     <table class="table table-striped">
       <tbody>
-      <% if @job %>
-          <% @job.each_index do |x| %>
+      <% if @job_application %>
+          <% @job_application.each_index do |x| %>
               <tr>
                 <td class="col-md-1">
                   <%= x+1 %>
                 </td>
                 <td class="col-md-6">
-                  <%= @jobs[x].title %>
+                  <%= @job_application[x].title %>
                 </td>
-                <td class="col-md-5">
-                  <div class="btn-group">
-                    <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary" %>
-                    <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success" %>
-                    <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-                  </div>
+                <td>
+                  <%@job_application[x].status%>
                 </td>
               </tr>
           <% end %>

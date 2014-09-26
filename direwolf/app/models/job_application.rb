@@ -3,5 +3,4 @@ class JobApplication < ActiveRecord::Base
   validates :job_id, :presence =>true
   validates :employer_id, :presence =>true
   validates :seeker_id, :presence =>true
-  validates :status_id, :presence =>true
 end
