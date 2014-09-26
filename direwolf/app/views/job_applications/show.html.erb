@@ -57,15 +57,15 @@
     </div>
 
       <%if employer_owns @job.id %>
-        <div class="btn-group">
+        <div class="btn-group btn-group-justified">
           <%= link_to "Accept", "/job_applications/accept/"+@app.id.to_s, :method=> :post, class: "btn btn-success" %>
           <%= link_to "Reject", "/job_applications/reject/"+@app.id.to_s, :method=> :post, class: "btn btn-danger" %>
           <%= link_to_function "Back", "history.back()", class: "btn btn-primary" %>
         </div>
       <%else%>
       <%if seeker_owns @app.id %>
-        <div class="btn-group">
-        <%= link_to "Withdraw", job_application_path(@app.id), :method=> :delete, class: "btn btn-success btn-block" %>
+        <div class="btn-group btn-group-justified">
+        <%= link_to "Withdraw", job_application_path(@app.id), :method=> :delete, class: "btn btn-danger" %>
         <%= link_to_function "Back", "history.back()", class: "btn btn-primary" %>
         </div>
       <%end%>
