@@ -82,42 +82,34 @@
     <div class="panel-heading">
       <h3 class="panel-title">Recommended Jobs</h3>
     </div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>Company</th>
-        <th>Job Title</th>
-        <th>Description</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>1</td>
-        <td>Google</td>
-        <td>Software developer</td>
-        <td>
-          <%= link_to "Job Description", jobs_path %>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Facebook</td>
-        <td>Sales</td>
-        <td>
-          <%= link_to "Job Description", jobs_path %>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Twitter</td>
-        <td>Senior Manager</td>
-        <td>
-          <%= link_to "Job Description", jobs_path %>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <% if @jobs.any? %>
+      <table class="table table-striped">
+        <tbody>
+        <% @jobs.each_index do | job | %>
+          <tr>
+            <td class="col-md-1">
+              <%= job + 1 %>
+            </td>
+            <td class="col-md-10">
+              <%= @jobs[job].title %>
+              <br/>
+              <% @jobs[job].tag_list.each do |tag|%>
+                <span class="label label-danger"><%= tag %></span>
+              <%end%>
+            </td>
+            <td class="col-md-1">
+              <%= link_to "Show", job_path(@jobs[job].id), class: "btn btn-primary pull-right" %>
+            </td>
+          </tr>
+        <% end %>
+
+        </tbody>
+      </table>
+    <% else %>
+      <div class="panel-body">
+        <p>No jobs to show</p>
+      </div>
+    <% end %>
   </div>
 </div>
 
