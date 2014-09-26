@@ -8,9 +8,7 @@ class SeekersController < ApplicationController
   # GET /seekers.json
   def index
     @seeker = Seeker.find(get_seeker_id)
-    @categories = Category.all
-    @jobs = Job.all
-    @employers = Employer.all
+    @job_applications = JobApplication.where( seeker_id: get_seeker_id).take(1000)
   end
 
   # GET /seekers/1

@@ -47,17 +47,24 @@
     </div>
     <table class="table table-striped">
       <tbody>
-      <% if @job_application %>
-          <% @job_application.each_index do |x| %>
+      <% if @job_applications %>
+      <%if false%>
+      <% if !@job_applications.respond_to? :each_index %>
+      <% @job_applications = [@job_applications] %>
+              <%end%>
+              <%end%>
+          <% @job_applications.each_index do |x| %>
               <tr>
                 <td class="col-md-1">
                   <%= x+1 %>
                 </td>
+                <%if false%>
                 <td class="col-md-6">
-                  <%= @job_application[x].title %>
+                  <%= @job_applications[x].title %>
                 </td>
+                    <%end%>
                 <td>
-                  <%@job_application[x].status%>
+                  <%@job_applications[x].status_id%>
                 </td>
               </tr>
           <% end %>
