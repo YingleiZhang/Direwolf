@@ -3,40 +3,7 @@
     <div class="panel-heading">
       <h3 class="panel-title"><%=@seeker.name%>'s Profile</h3>
     </div>
-<<<<<<< HEAD
-    <table class="table table-striped">
-      <tbody>
-      <tr>
-        <td>Name:</td>
-        <td><%=@seeker.name%></td>
-      </tr>
-      <tr>
-        <td>Email:</td>
-        <td><%=@seeker_email%></td>
-      </tr>
-      <tr>
-        <td>Phone Number:</td>
-        <td><%=@profile_phone%></td>
-      </tr>
-      <tr>
-        <td>Skills:</td>
-        <td><%=@profile_skills%></td>
-      </tr>
-      <tr>
-        <td>Resume:</td>
-        <td><%=@profile_resume%></td>
-      </tr>
-      <tr>
-        <td>
-        <div class="btn-group">
-          <%- #<button type="button" class="btn btn-success">Edit Profile</button> %>
-          <%= link_to "Edit Profile",new_profile_path, class: "btn btn-primary" %>
-        </div>
-        <td>
-      </tr>
-      </tbody>
-    </table>
-=======
+    
     <div class="panel-body">
       <%if @seeker%>
         <form class="form" role="form">
@@ -69,7 +36,6 @@
         <%= link_to "Edit Profile", edit_seeker_path(@seeker.id), class: "col-md-offset-4 col-md-4 btn btn-primary" %>
       </div>
       <%end%>
->>>>>>> 2b29b23f0f8abe18bc8cf20fdb1e220757ce6f19
   </div>
 </div>
 
