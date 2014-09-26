@@ -4,5 +4,5 @@ class Seeker < ActiveRecord::Base
   validates :email, :presence =>true
   validates :phone, :presence =>true
 
-  acts_as_taggable_on :skills
+  acts_as_taggable_on :skills, :applications
 end
