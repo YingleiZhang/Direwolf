@@ -6,7 +6,9 @@ class EmployersController < ApplicationController
   # GET /employers
   # GET /employers.json
   def index
-    @jobs = Job.where( employer_id: get_employer_id ).take(10)
+    employer_id = get_employer_id
+    @employer = Employer.find(employer_id)
+    @jobs = Job.where( employer_id: employer_id )
   end
 
   # GET /employers/1
@@ -29,6 +31,7 @@ class EmployersController < ApplicationController
   def create
     @employer = Employer.new(employer_params)
     @employer.user_id = get_user_id
+    @employer.pending = true
 
     if @employer.save
       redirect_to root_path
@@ -70,6 +73,6 @@ class EmployersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employer_params
-      params.require(:employer).permit(:name)
+      params.require(:employer).permit(:name, :email, :company_name)
     end
 end

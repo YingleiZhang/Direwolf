@@ -2,6 +2,7 @@ class JobsController < ApplicationController
 
   include UsersHelper
   include EmployersHelper
+  include ActsAsTaggableOn::TagsHelper
 
   def index
 

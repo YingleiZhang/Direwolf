@@ -1,8 +1,9 @@
 <div class="col-md-4">
-  <div class="panel panel-primary">
+  <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Profile</h3>
+      <h3 class="panel-title"><%=@seeker.name%>'s Profile</h3>
     </div>
+<<<<<<< HEAD
     <table class="table table-striped">
       <tbody>
       <tr>
@@ -35,6 +36,40 @@
       </tr>
       </tbody>
     </table>
+=======
+    <div class="panel-body">
+      <%if @seeker%>
+        <form class="form" role="form">
+
+          <div class="form-group">
+            <label class="control-label">Email:</label>
+            <p class="form-control-static"><%= @seeker.email %></p>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Phone:</label>
+            <p class="form-control-static"><%= @seeker.phone %></p>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Skills:</label>
+            <p class="form-control-static">
+              <% @seeker.skill_list.each do |skill|%>
+                <span class="label label-success"><%= skill %></span>
+              <%end%>
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Resume:</label>
+            <p class="form-control-static"><%= @seeker.resume %></p>
+          </div>
+
+        </form>
+        <%= link_to "Edit Profile",seekers_path, class: "col-md-offset-4 col-md-4 btn btn-primary" %>
+      </div>
+      <%end%>
+>>>>>>> 2b29b23f0f8abe18bc8cf20fdb1e220757ce6f19
   </div>
 </div>
 

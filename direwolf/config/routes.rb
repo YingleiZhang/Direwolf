@@ -1,8 +1,6 @@
 Direwolf::Application.routes.draw do
 
 
-  resources :profiles
-
   resources :employers
   resources :admins
   resources :users
