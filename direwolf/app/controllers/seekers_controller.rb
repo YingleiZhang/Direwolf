@@ -12,9 +12,6 @@ class SeekersController < ApplicationController
     @applied_jobs = Job.all
     @recommend_jobs = Job.tagged_with(@seeker.application_list, :any => true)
     @employers = Employer.all
-
-    puts "Skills: " + @seeker.skill_list.to_s
-    puts "Applied: " + @seeker.application_list.to_s
   end
 
   # GET /seekers/1
