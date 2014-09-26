@@ -40,7 +40,9 @@
       </div>
 
         <div id="wrap" class="container">
-
+          <% if flash[:error_message] %>
+            <div class="alert alert-info"><%= flash[:error_message] %></div>
+          <% end %>
           <%= yield %>
 
         </div> <!-- /container -->
