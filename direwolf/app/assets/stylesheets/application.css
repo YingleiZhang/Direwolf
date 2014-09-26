@@ -11,4 +11,6 @@
  *= require_self
  *= require vendor_css
  *= require styles
+ *= require bootstrap/bootstrap
+ *= require bootstrap-datetimepicker
  */

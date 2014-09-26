@@ -20,6 +20,7 @@ class CreateFramework < ActiveRecord::Migration
       t.text :description
       t.references :employer, :null=>false
       t.references :category, :null=>false
+      t.datetime :expires_at
     end
 
     create_table :categories do |t|

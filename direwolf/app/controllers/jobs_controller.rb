@@ -66,6 +66,9 @@ class JobsController < ApplicationController
     if user_is :employer
       if employer_owns params[:id]
         @job = Job.find params[:id]
+        JobApplication.where(job_id: params[:id]).each do |app|
+          app.delete
+        end
         flash[:error_message] = "Unable to delete" unless @job.delete
       end
     end
@@ -95,7 +98,7 @@ class JobsController < ApplicationController
   end
 
   def job_params
-    params.require(:job).permit(:title, :search, :description)
+    params.require(:job).permit(:title, :search, :description, :expires_at)
   end
 
 end
