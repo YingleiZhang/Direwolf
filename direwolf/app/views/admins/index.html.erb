@@ -170,31 +170,26 @@
       </div>
     </div>
   </div>
+<% end %>
 
-  <div class = "row">
-    <div class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%=@admin.name%>'s Profile</h3>
-        </div>
+<div class = "row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%=@admin.name%>'s Profile</h3>
+      </div>
 
-        <div class="panel-body">
-          <%if @admin%>
-              <form class="form" role="form">
-                <table>
-                  <td>
-                    <div class="form-group">
-                      <label class="control-label">Email:</label>
-                      <p class="form-control-static"><%= @admin.email %></p>
-                    </div>
-                  </td>
-                  <td>  </td>
-                </table>
-              </form>
-              <%= link_to "Edit Profile", edit_admin_path(@admin.id), class: " btn btn-primary" %>
-              </div>
-          <%end%>
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Email:</label>
+            <div class="col-md-8">
+              <p class="form-control-static"><%= @admin.email %></p>
+            </div>
           </div>
+        </form>
+        <%= link_to "Edit Profile", edit_admin_path(@admin.id), class: "col-md-offset-4 btn btn-primary" %>
+      </div>
     </div>
   </div>
-<% end %>
+</div>

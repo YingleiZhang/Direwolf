@@ -15,25 +15,26 @@
 
       <div class="panel-body">
         <%if @employer%>
-          <form class="form" role="form">
-            <table>
-              <td>
-                <div class="form-group">
-                  <label class="control-label">Email:</label>
-                  <p class="form-control-static"><%= @employer.email %></p>
-                </div>
-              </td>
-              <div class="form-group">
-                <label class="control-label">Contact:</label>
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-md-4 control-label">Contact:</label>
+              <div class="col-md-8">
                 <p class="form-control-static"><%= @employer.name %></p>
               </div>
-            </table>
+            </div>
+            <div class="field">
+              <label class="col-md-4 control-label">Email:</label>
+              <div class="col-md-8">
+                <p class="form-control-static"><%= @employer.email %></p>
+              </div>
+            </div>
           </form>
-          <%= link_to "Edit Profile", edit_employer_path(@employer.id), class: " btn btn-primary" %>
+          <%= link_to "Edit Profile", edit_employer_path(@employer.id), class: "col-md-offset-5 btn btn-primary" %>
       </div>
         <%end%>
     </div>
   </div>
+
 <% if !@employer.pending %>
   <div class="col-md-6">
     <div class="panel panel-default">
