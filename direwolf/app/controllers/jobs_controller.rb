@@ -8,17 +8,18 @@ class JobsController < ApplicationController
 
     if params[:search]
       @jobs = Job.search(params[:search])
-      return
-    end
-
-    @user_type = get_user_type
-
-    if user_is :employer
-      @jobs = Job.where( employer_id: get_employer_id )
-      return
     else
       @jobs = Job.all
     end
+
+    # @user_type = get_user_type
+    #
+    # if user_is :employer
+    #   @jobs = Job.where( employer_id: get_employer_id )
+    #   return
+    # else
+    #   @jobs = Job.all
+    # end
 
   end
 
@@ -52,13 +53,16 @@ class JobsController < ApplicationController
   def show
     if Job.exists? params[:id]
       @job = Job.find params[:id]
+      puts @job.description
       if Category.exists? @job.category_id
         @category = Category.find(@job.category_id).name
       end
-      @employer = Employer.find(@job.employer_id).name
+      @employer = Employer.find(@job.employer_id)
     else
       permission_denied #"Job Does Not Exist"
     end
+    puts @job.description
+
   end
 
   def destroy
@@ -88,8 +92,13 @@ class JobsController < ApplicationController
   end
 
   private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_job
+    @job = Admin.find(params[:id])
+  end
+
   def job_params
-    params.require(:job).permit(:title, :search)
+    params.require(:job).permit(:title, :search, :description)
   end
 
 end

@@ -7,6 +7,6 @@ class Job < ActiveRecord::Base
   acts_as_taggable
 
   def self.search(search)
-    find(:all, :conditions => ['title LIKE ?', "%#{search}%" ])
+    find(:all, :conditions => ['title LIKE ? OR description LIKE ?', "%#{search}%", "%#{search}%" ])
   end
 end
