@@ -1,36 +1,55 @@
-<div class="col-md-offset-3 col-md-6">
+<div class="col-md-offset-2 col-md-8">
+  <div class="panel">
+    <%= form_tag(jobs_path, :method => "get", id: "search-form", :html => {class: "form-inline", :role => "form"}) do %>
+      <div class="form-group">
+        <div class="col-md-10">
+          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Jobs" %>
+        </div>
+        <!-- In order to have the "search" icon int the button, we need to use plain HTML instead
+             of using a Rails form helper -->
+        <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="col-md-offset-2 col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Jobs Table</h3>
     </div>
-    <table class="table table-striped">
-      <tbody>
-      <% if @jobs %>
-        <% @jobs.each_index do | job | %>
-          <tr>
-            <td class="col-md-1">
-              <%= job + 1 %>
-            </td>
-            <td class="col-md-6">
-              <%= @jobs[job].title %>
-            </td>
-            <td class="col-md-5">
-              <div class="btn-group">
-                <%= link_to "Show", job_path(@jobs[job].id), class: "btn btn-primary" %>
-                <% if @user_type == :employer %>
-                  <%= link_to "Edit", edit_job_path(@jobs[job].id), class: "btn btn-success" %>
-                  <%= link_to "Delete", job_path(@jobs[job].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-                <% end %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      <% end %>
-      </tbody>
-    </table>
+    <% if @jobs.any? %>
+      <table class="table table-striped">
+        <tbody>
+          <% @jobs.each_index do | job | %>
+            <tr>
+              <td class="col-md-1">
+                <%= job + 1 %>
+              </td>
+              <td class="col-md-6">
+                <%= @jobs[job].title %>
+              </td>
+              <td class="col-md-5">
+                <div class="btn-group">
+                  <%= link_to "Show", job_path(@jobs[job].id), class: "btn btn-primary" %>
+                  <% if @user_type == :employer %>
+                    <%= link_to "Edit", edit_job_path(@jobs[job].id), class: "btn btn-success" %>
+                    <%= link_to "Delete", job_path(@jobs[job].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+    <% else %>
+      <div class="panel-body">
+        <p>No jobs to show</p>
+      </div>
+    <% end %>
     <% if @user_type == :employer %>
       <%= link_to "New Job Posting", new_job_path, class: "btn btn-success btn-block" %>
     <% end %>
   </div>
 </div>
-

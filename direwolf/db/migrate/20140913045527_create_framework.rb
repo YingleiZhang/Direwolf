@@ -29,11 +29,13 @@ class CreateFramework < ActiveRecord::Migration
       t.string :title, :null=>false
     end
 
-    create_table :applications do |t|
+    create_table :job_applications do |t|
       t.references :job, :null=>false
       t.references :employer, :null=>false
       t.references :seeker, :null=>false
       t.references :status, :null=>false
+      t.text :cover_letter
+      t.timestamps
     end
 
     add_foreign_key(:seekers, :users)

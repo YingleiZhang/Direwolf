@@ -6,10 +6,16 @@ class JobsController < ApplicationController
 
   def index
 
+    if params[:search]
+      @jobs = Job.search(params[:search])
+      return
+    end
+
     @user_type = get_user_type
 
     if user_is :employer
       @jobs = Job.where( employer_id: get_employer_id )
+      return
     else
       @jobs = Job.all
     end
@@ -83,7 +89,7 @@ class JobsController < ApplicationController
 
   private
   def job_params
-    params.require(:job).permit(:title)
+    params.require(:job).permit(:title, :search)
   end
 
 end
