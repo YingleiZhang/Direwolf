@@ -21,6 +21,7 @@ class SeekersController < ApplicationController
   # GET /seekers/1
   # GET /seekers/1.json
   def show
+    @seeker = Seeker.find(params[:id])
   end
 
   # GET /seekers/new

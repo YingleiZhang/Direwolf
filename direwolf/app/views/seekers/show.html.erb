@@ -1,4 +1,45 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_seeker_path(@seeker) %> |
-<%= link_to 'Back', seekers_path %>
+<div class="col-md-offset-2 col-md-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%=@seeker.name.to_s%></h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Email:</label>
+            <div class="col-sm-9">
+              <p class="form-control-static"><%= @seeker.email %></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Phone:</label>
+            <div class="col-sm-9">
+              <p class="form-control-static"><%= @seeker.phone %></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Skills:</label>
+            <div class="col-sm-9">
+              <p class="form-control-static">
+                <% @seeker.skill_list.each do |skill|%>
+                  <span class="label label-danger"><%= skill %></span>
+                <%end%>
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Resume:</label>
+            <div class="col-sm-9">
+              <p class="form-control-static"><%= @seeker.resume %></p>
+            </div>
+          </div>
+
+        </form>
+    </div>
+  </div>
+  <%= link_to 'Back', root_path, class: "btn btn-primary pull-left" %>
+</div>
