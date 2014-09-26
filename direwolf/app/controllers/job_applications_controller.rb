@@ -53,6 +53,7 @@ class JobApplicationsController < ApplicationController
       app = JobApplication.find params[:id]
       app.delete
     end
+    redirect_to root_path
   end
 
   def accept
