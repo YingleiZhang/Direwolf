@@ -40,10 +40,10 @@
     </div>
 
         <%if employer_owns @job.id %>
-          <%= link_to "Manage Applications", job_application_path(@job.id), class: "btn btn-success btn-block" %>
+          <%= link_to "Manage Applications", job_application_path(:job_id=>@job.id), class: "btn btn-success btn-block" %>
         <%end%>
         <%if get_user_type == :seeker %>
-          <%= link_to "Apply", new_job_application_path(@job_id), class: "btn btn-success btn-block" %>
+          <%= link_to "Apply", new_job_application_path(:job_id=>@job.id), class: "btn btn-success btn-block" %>
         <%end%>
         <%if get_user_type.nil? %>
           <%= link_to "Log In To Apply!", "/auth/google_oauth2", id: "sign_in", class: "btn btn-success btn-block" %>
