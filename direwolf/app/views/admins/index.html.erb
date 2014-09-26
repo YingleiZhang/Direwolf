@@ -170,4 +170,31 @@
       </div>
     </div>
   </div>
+
+  <div class = "row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%=@admin.name%>'s Profile</h3>
+        </div>
+
+        <div class="panel-body">
+          <%if @admin%>
+              <form class="form" role="form">
+                <table>
+                  <td>
+                    <div class="form-group">
+                      <label class="control-label">Email:</label>
+                      <p class="form-control-static"><%= @admin.email %></p>
+                    </div>
+                  </td>
+                  <td>  </td>
+                </table>
+              </form>
+              <%= link_to "Edit Profile", edit_admin_path(@admin.id), class: " btn btn-primary" %>
+              </div>
+          <%end%>
+          </div>
+    </div>
+  </div>
 <% end %>
