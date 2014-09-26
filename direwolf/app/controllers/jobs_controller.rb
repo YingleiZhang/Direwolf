@@ -53,7 +53,6 @@ class JobsController < ApplicationController
   def show
     if Job.exists? params[:id]
       @job = Job.find params[:id]
-      puts @job.description
       if Category.exists? @job.category_id
         @category = Category.find(@job.category_id).name
       end
@@ -61,8 +60,6 @@ class JobsController < ApplicationController
     else
       permission_denied #"Job Does Not Exist"
     end
-    puts @job.description
-
   end
 
   def destroy
