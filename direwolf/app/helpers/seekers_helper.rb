@@ -15,7 +15,7 @@ module SeekersHelper
   def seeker_owns application_id
     id = get_seeker_id
     if id
-      if Application.find(application_id).seeker_id == id
+      if JobApplication.find(application_id).seeker_id == id
         return :true
       end
     end
