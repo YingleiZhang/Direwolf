@@ -63,6 +63,7 @@ class EmployersController < ApplicationController
       format.html { redirect_to employers_url }
       format.json { head :no_content }
     end
+    redirect_to root_path
   end
 
   private
