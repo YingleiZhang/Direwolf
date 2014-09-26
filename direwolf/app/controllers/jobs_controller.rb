@@ -45,7 +45,7 @@ class JobsController < ApplicationController
       @job.tag_list.add(params[:job][:tag_list].to_s.downcase, parse: true)
       @job.employer_id = get_employer_id
       @job.category_id = params[:job][:category_id]
-      @job.save
+      flash[:error_message] = "Unable to create" unless @job.save
     end
     redirect_to jobs_path
   end

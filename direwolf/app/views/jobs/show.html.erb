@@ -63,7 +63,7 @@
     </div>
 
       <%if employer_owns @job.id %>
-        <div class="btn-group">
+        <div class="btn-group btn-group-justified">
           <%= link_to "Manage Applications", job_applications_path(:job_id=>@job.id), class: "btn btn-success" %>
           <%= link_to "Edit", edit_job_path(:id => @job.id), class: "btn btn-primary" %>
           <%= link_to "Delete", job_path(:id => @job.id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
