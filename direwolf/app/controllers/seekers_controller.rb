@@ -1,3 +1,4 @@
+# David Zager
 class SeekersController < ApplicationController
   before_action :set_seeker, only: [:show, :edit, :update, :destroy]
 
