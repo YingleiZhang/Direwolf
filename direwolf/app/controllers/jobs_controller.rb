@@ -69,6 +69,7 @@ class JobsController < ApplicationController
     if user_is :employer
       if employer_owns params[:id]
         @job = Job.find params[:id]
+        @job.tag_list = params[:job][:tag_list].to_s.downcase
         flash[:error_message] = "Unable to update" unless @job.update(job_params)
       end
     end
