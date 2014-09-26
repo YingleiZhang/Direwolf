@@ -40,57 +40,43 @@
 </div>
 
 
-<div class="col-md-4">
-  <div class="panel panel-primary">
+<div class=" col-md-4">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Applied Jobs</h3>
     </div>
     <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>Company</th>
-        <th>Job Title</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-      </thead>
       <tbody>
+      <% if @job %>
+          <% @job.each_index do |x| %>
+              <tr>
+                <td class="col-md-1">
+                  <%= x+1 %>
+                </td>
+                <td class="col-md-6">
+                  <%= @jobs[x].title %>
+                </td>
+                <td class="col-md-5">
+                  <div class="btn-group">
+                    <%= link_to "Show", job_path(@jobs[x].id), class: "btn btn-primary" %>
+                    <%= link_to "Edit", edit_job_path(@jobs[x].id), class: "btn btn-success" %>
+                    <%= link_to "Delete", job_path(@jobs[x].id), :method=> :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                  </div>
+                </td>
+              </tr>
+          <% end %>
+      <%else%>
+      <tr></tr>
       <tr>
-        <td>1</td>
-        <td>Google</td>
-        <td>Software developer</td>
-        <td>status</td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-danger">Withdraw</button>
-          </div>
-        </td>
+        <div class="alert alert-danger" role="alert">
+          You haven't applied for any jobs..
+        </div>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>Facebook</td>
-        <td>Sales</td>
-        <td>status</td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-danger">Withdraw</button>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Twitter</td>
-        <td>Senior Manager</td>
-        <td>status</td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-danger">Withdraw</button>
-          </div>
-        </td>
-      </tr>
+      <% end %>
+
       </tbody>
     </table>
+    <%= link_to "Apply for a new job", jobs_path, class: "btn btn-success btn-block" %>
   </div>
 </div>
 
