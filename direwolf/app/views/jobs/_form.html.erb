@@ -46,20 +46,37 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :expires_at, "Deadline:", class: "col-md-4 control-label" %>
-        <div class="col-md-4">
-          <div class='input-group date' id='datetimepicker1'>
-            <%= f.text_field :expires_at,  class: "form-control" %>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-            </span>
+        <%if @ustime %>
+          <%= f.label :ustime, "Deadline:", class: "col-md-4 control-label" %>
+          <div class="col-md-4">
+           <div class='input-group date' id='datetimepicker1'>
+             <%= f.text_field :ustime,  class: "form-control" %>
+             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+             </span>
+            </div>
           </div>
-        </div>
           <script type="text/javascript">
             $(function () {
-             $('#datetimepicker1').datetimepicker();
+               $('#datetimepicker1').datetimepicker();
             });
           </script>
-      </div>
+
+        <%else%>
+          <%= f.label :expires_at, "Deadline:", class: "col-md-4 control-label" %>
+          <div class="col-md-4">
+           <div class='input-group date' id='datetimepicker1'>
+             <%= f.text_field :expires_at,  class: "form-control" %>
+             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+             </span>
+           </div>
+          </div>
+          <script type="text/javascript">
+               $(function () {
+                    $('#datetimepicker1').datetimepicker();
+                });
+          </script>
+         <%end%>
+        </div>
 
       <!-- Textarea -->
       <div class="form-group">

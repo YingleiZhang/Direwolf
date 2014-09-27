@@ -32,6 +32,7 @@ class JobsController < ApplicationController
     if user_is :employer
       if employer_owns params[:id]
         @job = Job.find params[:id]
+        @ustime = @job.ustime
         @categories = Category.all
       end
     end
@@ -40,12 +41,14 @@ class JobsController < ApplicationController
 
   def create
     if user_is :employer
-      @job = Job.new(job_params)
+      job_info = job_params
+      job_info[:expires_at] = Job.utctime(job_info[:expires_at])
+      @job = Job.new(job_info)
       # add tags
       @job.tag_list.add(params[:job][:tag_list].to_s.downcase, parse: true)
       @job.employer_id = get_employer_id
       @job.category_id = params[:job][:category_id]
-      flash[:error_message] = "Unable to create" unless @job.save
+      flash[:error_message] = @job.errors.message unless @job.save
     end
     redirect_to jobs_path
   end
@@ -80,7 +83,9 @@ class JobsController < ApplicationController
       if employer_owns params[:id]
         @job = Job.find params[:id]
         @job.tag_list = params[:job][:tag_list].to_s.downcase
-        flash[:error_message] = "Unable to update" unless @job.update(job_params)
+        job_info = job_params
+        job_info[:expires_at] = Job.utctime(params[:job][:ustime])
+        flash[:error_message] = "Unable to update" unless @job.update(job_info)
       end
     end
     redirect_to root_path
