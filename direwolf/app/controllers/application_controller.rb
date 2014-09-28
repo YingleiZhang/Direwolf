@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  helper_method :permission_denied
+
   include UsersHelper
 
   def current_user
@@ -20,9 +22,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def permission_denied
-    redirect_to "http://giphy.com/gifs/njYrp176NQsHS/fullscreen?undefined"
-    # render :file => "public/401.html", :status => :unauthorized
+  def permission_denied (message="You_are_not_authorized_to_view_this_page")
+    redirect_to "/home/unauthorized/?message="+message
   end
 
 

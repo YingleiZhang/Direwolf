@@ -2,25 +2,23 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   include AdminsHelper
-  include UsersHelper
 
   # GET /admins
   # GET /admins.json
   def index
-
-    if !(user_is :admin)
-      permission_denied
+    admins_only do
+      @admin = Admin.find(get_admin_id)
+      @admins = Admin.all
+      @employers = Employer.all
+      @seekers = Seeker.all
+      @categories = Category.all
     end
-    @admin = Admin.find(get_admin_id)
-    @admins = Admin.all
-    @employers = Employer.all
-    @seekers = Seeker.all
-    @categories = Category.all
   end
 
   # GET /admins/1
   # GET /admins/1.json
   def show
+    permission_denied
   end
 
   # GET /admins/new
@@ -30,13 +28,14 @@ class AdminsController < ApplicationController
 
   # GET /admins/1/edit
   def edit
+    permission_denied "This_is_not_your_profile" unless get_admin_id == params[:id]
   end
 
   # POST /admins
   # POST /admins.json
   def create
     @admin = Admin.new(admin_params)
-    @admin.user_id = User.find(session[:user_id]).uid
+    @admin.user_id = get_user_id
 
     if Admin.any?
       @admin.pending = true
@@ -56,27 +55,31 @@ class AdminsController < ApplicationController
   end
 
   def accept
-    @admin = Admin.find params[:id]
-    @admin.pending = false
+    admins_only do
+      @admin = Admin.find params[:id]
+      @admin.pending = false
 
-    if @admin.save
-      redirect_to root_path
-    else
-      flash[:error_message] = "Admin Update Unsuccessful"
-      redirect_to root_path
+      if @admin.save
+        redirect_to root_path
+      else
+        flash[:error_message] = "Admin Update Unsuccessful"
+        redirect_to root_path
+      end
     end
   end
 
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
-    respond_to do |format|
-      if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
+    admins_only do
+      respond_to do |format|
+        if @admin.update(admin_params)
+          format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @admin.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -84,10 +87,12 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    @admin.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.json { head :no_content }
+    admins_only do
+      @admin.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { head :no_content }
+      end
     end
   end
 

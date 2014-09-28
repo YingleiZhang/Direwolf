@@ -10,5 +10,14 @@ module AdminsHelper
       return nil
     end
   end
+
+  def admins_only
+    if user_is :admin
+      yield
+    else
+      permission_denied("You_are_not_an_Admin")
+    end
+  end
+
 end
 

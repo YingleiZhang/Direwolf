@@ -1,20 +1,24 @@
 class JobApplicationsController < ApplicationController
- include SeekersHelper 
- include EmployersHelper
+  include SeekersHelper 
+  include EmployersHelper
+
   def new
-    if(params[:job_id])
-      @job = Job.find(params[:job_id])
-      if @job
-        @app = JobApplication.new
-        @employer = Employer.find @job.employer_id
-        @seeker_id = get_seeker_id
+    seekers_only do
+      if(params[:job_id])
+        @job = Job.find(params[:job_id])
+        if @job
+          @app = JobApplication.new
+          @employer = Employer.find @job.employer_id
+          @seeker_id = get_seeker_id
+        end
       end
     end
   end
 
   def create
+    seekers_only do
       @app = JobApplication.new(job_params)
-
+      @app.status_id = "Pending"
       job = Job.find(@app.job_id)
       tag_list = job.tag_list
       seeker = Seeker.find(@app.seeker_id)
@@ -28,60 +32,76 @@ class JobApplicationsController < ApplicationController
         flash[:error_message] = "You have already applied to that job!"
       end
       redirect_to root_path
+    end
   end
 
   def edit
+    seekers_only do
+      permission_denied "You_do_not_own_this_application" unless get_seeker_id == JobApplication.find(params[:id]).seeker_id
+    end
   end
 
   def index
-    if employer_owns params[:job_id]
-      @apps = JobApplication.where(job_id: params[:job_id]).take(1000)
+    employers_only do
+      if employer_owns params[:job_id]
+        @apps = JobApplication.where(job_id: params[:job_id]).take(1000)
+      end
     end
   end
 
   def show
+    if JobApplication.exists? params[:id]
     @app = JobApplication.find params[:id]
     if employer_or_seeker_owns @app
       @seeker = Seeker.find @app.seeker_id
       @employer = Employer.find @app.employer_id
       @job = Job.find @app.job_id
     else
-      permission_denied
+      permission_denied "You_are_not_associated_with_this_application"
+    end
+    else
+      permission_denied "Job_Application_does_not_exist"
     end
   end
 
   def destroy
-    if seeker_owns params[:id]
-      app = JobApplication.find params[:id]
-      app.delete
+    seekers_only do
+      if seeker_owns params[:id]
+        app = JobApplication.find params[:id]
+        app.delete
+      end
+      redirect_to root_path
     end
-    redirect_to root_path
   end
 
   def accept
-    @app = JobApplication.find params[:id]
-    if employer_owns @app.job_id
-      @app.status_id = "accepted"
-      if( @app.save )
-        flash[:status] = "Success"
-      else
-        flash[:error_message] = "Unable to change status"
+    employers_only do
+      @app = JobApplication.find params[:id]
+      if employer_owns @app.job_id
+        @app.status_id = "Accepted"
+        if( @app.save )
+          flash[:status] = "Success"
+        else
+          flash[:error_message] = "Unable to change status"
+        end
       end
+      redirect_to job_applications_path(job_id: @app.job_id)
     end
-    redirect_to job_applications_path(job_id: @app.job_id)
   end
 
   def reject
-    @app = JobApplication.find params[:id]
-    if employer_owns @app.job_id
-      @app.status_id = "rejected"
-      if( @app.save )
-        flash[:status] = "Success"
-      else
-        flash[:error_message] = "Unable to change status"
+    employers_only do
+      @app = JobApplication.find params[:id]
+      if employer_owns @app.job_id
+        @app.status_id = "Rejected"
+        if( @app.save )
+          flash[:status] = "Success"
+        else
+          flash[:error_message] = "Unable to change status"
+        end
       end
+      redirect_to job_applications_path(job_id: @app.job_id)
     end
-    redirect_to job_applications_path(job_id: @app.job_id)
   end
 
   private

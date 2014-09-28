@@ -8,20 +8,26 @@ class SeekersController < ApplicationController
   # GET /seekers
   # GET /seekers.json
   def index
-    @seeker = Seeker.find(get_seeker_id)
-    @categories = Category.all
-    @job_applications = JobApplication.where( seeker_id: get_seeker_id).take(1000)
-    jobs_applied_for = Job
-    @recommend_jobs = Job.tagged_with(@seeker.application_list, :any => true) - @job_applications.map do |an_application|
-      Job.find(an_application.job_id)
+    seekers_only do
+      @seeker = Seeker.find(get_seeker_id)
+      @categories = Category.all
+      @job_applications = JobApplication.where( seeker_id: get_seeker_id).take(1000)
+      jobs_applied_for = Job
+      @recommend_jobs = Job.tagged_with(@seeker.application_list, :any => true) - @job_applications.map do |an_application|
+        Job.find(an_application.job_id)
+      end
+      #@employers = Employer.all
     end
-    @employers = Employer.all
   end
 
   # GET /seekers/1
   # GET /seekers/1.json
   def show
-    @seeker = Seeker.find(params[:id])
+    if Seeker.exists?(params[:id])
+      @seeker = Seeker.find(params[:id])
+    else
+      permission_denied "Job_Seeker_does_no_exist"
+    end
   end
 
   # GET /seekers/new
@@ -31,7 +37,11 @@ class SeekersController < ApplicationController
 
   # GET /seekers/1/edit
   def edit
-    @seeker = Seeker.find params[:id]
+    if( get_seeker_id == params[:id])
+      @seeker = Seeker.find params[:id]
+    else
+      permission_denied "You_do_not_own_this_profile"
+    end
   end
 
   # POST /seekers
@@ -55,17 +65,19 @@ class SeekersController < ApplicationController
   # PATCH/PUT /seekers/1
   # PATCH/PUT /seekers/1.json
   def update
-
-    @seeker.skill_list = params[:seeker][:skill_list].to_s.downcase
-
-    respond_to do |format|
-      if @seeker.update(seeker_params)
-        format.html { redirect_to root_path, notice: 'Seeker was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @seeker.errors, status: :unprocessable_entity }
+    if( get_seeker_id = params[:id] )
+      @seeker.skill_list = params[:seeker][:skill_list].to_s.downcase
+      respond_to do |format|
+        if @seeker.update(seeker_params)
+          format.html { redirect_to root_path, notice: 'Seeker was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @seeker.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      permission_denied "You_do_no_own_this_profile"
     end
   end
 

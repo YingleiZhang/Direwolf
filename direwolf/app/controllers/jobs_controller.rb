@@ -5,13 +5,11 @@ class JobsController < ApplicationController
   include ActsAsTaggableOn::TagsHelper
 
   def index
-
     if params[:search]
       @jobs = Job.search(params[:search])
     else
       @jobs = Job.all
     end
-
     # @user_type = get_user_type
     #
     # if user_is :employer
@@ -20,27 +18,28 @@ class JobsController < ApplicationController
     # else
     #   @jobs = Job.all
     # end
-
   end
 
   def new
-    @job = Job.new
-    @categories = Category.all
+    employers_only do
+      @job = Job.new
+      @categories = Category.all
+    end
   end
 
   def edit
-    if user_is :employer
+    employers_only do
       if employer_owns params[:id]
         @job = Job.find params[:id]
         @ustime = @job.ustime
         @categories = Category.all
       end
+      permission_denied "You_do_not_own_that_job_posting" unless @job
     end
-    permission_denied unless @job
   end
 
   def create
-    if user_is :employer
+    employers_only do
       job_info = job_params
       job_info[:expires_at] = Job.utctime(job_info[:expires_at])
       @job = Job.new(job_info)
@@ -49,8 +48,8 @@ class JobsController < ApplicationController
       @job.employer_id = get_employer_id
       @job.category_id = params[:job][:category_id]
       flash[:error_message] = @job.errors.message unless @job.save
+      redirect_to jobs_path
     end
-    redirect_to jobs_path
   end
 
   def show
@@ -61,12 +60,12 @@ class JobsController < ApplicationController
       end
       @employer = Employer.find(@job.employer_id)
     else
-      permission_denied #"Job Does Not Exist"
+      permission_denied "Job_Does_Not_Exist"
     end
   end
 
   def destroy
-    if user_is :employer
+    employers_only do
       if employer_owns params[:id]
         @job = Job.find params[:id]
         JobApplication.where(job_id: params[:id]).each do |app|
@@ -74,12 +73,12 @@ class JobsController < ApplicationController
         end
         flash[:error_message] = "Unable to delete" unless @job.delete
       end
+      redirect_to root_path
     end
-    redirect_to root_path
   end
 
   def update
-    if user_is :employer
+    employers_only do
       if employer_owns params[:id]
         @job = Job.find params[:id]
         @job.tag_list = params[:job][:tag_list].to_s.downcase
@@ -87,8 +86,8 @@ class JobsController < ApplicationController
         job_info[:expires_at] = Job.utctime(params[:job][:ustime])
         flash[:error_message] = "Unable to update" unless @job.update(job_info)
       end
+      redirect_to root_path
     end
-    redirect_to root_path
   end
 
   def get_tags_as_json

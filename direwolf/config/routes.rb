@@ -37,6 +37,7 @@ Direwolf::Application.routes.draw do
 
   get 'home/register', to: 'home#register'
   get 'home/:id/index', to: 'home#index'
+  get 'home/unauthorized', to: 'home#unauthorized'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

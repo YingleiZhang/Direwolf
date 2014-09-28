@@ -20,5 +20,13 @@ module EmployersHelper
     return false
   end
 
+  def employers_only
+    if user_is :employer
+      yield
+    else
+      permission_denied("You_are_not_an_Employer")
+    end
+  end
+
 end
 

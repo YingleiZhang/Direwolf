@@ -8,4 +8,8 @@ class HomeController < ApplicationController
       end
     end
   end
+  def unauthorized
+    @message = params[:message]
+    @message.gsub! '_', ' '
+  end
 end

@@ -22,4 +22,12 @@ module SeekersHelper
     return :false
   end
 
+  def seekers_only
+    if user_is :seeker
+      yield
+    else
+      permission_denied("You_are_not_a_Job_Seeker")
+    end
+  end
+
 end

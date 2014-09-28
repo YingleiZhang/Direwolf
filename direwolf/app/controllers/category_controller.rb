@@ -1,14 +1,12 @@
 class CategoryController < ApplicationController
 
+  include AdminsHelper
+
   def index
-    @category = Category.new
-    @categories = Category.all
-    @type = UsersController.new( session[:user_id] ).type
-
-    if @type != :admin
-      permission_denied
+    admins_only do
+      @category = Category.new
+      @categories = Category.all
     end
-
   end
 
   def show
@@ -17,22 +15,26 @@ class CategoryController < ApplicationController
 
   # GET /category/new
   def new
-    @category = Category.new
+    admins_only do
+      @category = Category.new
+    end
   end
 
   # POST /category
   # POST /category.json
   def create
-    @category = Category.new(category_params)
-    @category.name = params[:category][:name].to_s.camelcase
+    admins_only do
+      @category = Category.new(category_params)
+      @category.name = params[:category][:name].to_s.camelcase
 
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to category_index_path, notice: 'Category was successfully created.' }
-        format.json { render action: 'index', status: :created, location: @category }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @category.save
+          format.html { redirect_to category_index_path, notice: 'Category was successfully created.' }
+          format.json { render action: 'index', status: :created, location: @category }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @category.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -40,13 +42,15 @@ class CategoryController < ApplicationController
   # DELETE /category/1
   # DELETE /category/1.json
   def destroy
-    @category = Category.find params[:id]
-    if @category.destroy
-      @notice = 'Category was removed'
-    else
-      @notice = "Error"
+    admins_only do
+      @category = Category.find params[:id]
+      if @category.destroy
+        @notice = 'Category was removed'
+      else
+        @notice = "Error"
+      end
+      redirect_to category_index_path
     end
-    redirect_to category_index_path
   end
 
   private

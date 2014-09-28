@@ -6,14 +6,18 @@ class EmployersController < ApplicationController
   # GET /employers
   # GET /employers.json
   def index
-    employer_id = get_employer_id
-    @employer = Employer.find(employer_id)
-    @jobs = Job.where( employer_id: employer_id )
+    employers_only do
+      employer_id = get_employer_id
+      permission_denied "You_do_no_own_this_profile" unless employer_id
+      @employer = Employer.find(employer_id)
+      @jobs = Job.where( employer_id: employer_id )
+    end
   end
 
   # GET /employers/1
   # GET /employers/1.json
   def show
+    permission_denied "Page_Does_not_exist"
   end
 
   # GET /employers/new
@@ -43,27 +47,31 @@ class EmployersController < ApplicationController
   end
 
   def accept
-    @employer = Employer.find params[:id]
-    @employer.pending = false
+    admins_only do
+      @employer = Employer.find params[:id]
+      @employer.pending = false
 
-    if @employer.save
-      redirect_to root_path
-    else
-      flash[:error_message] = "Employer Update Unsuccessful"
-      redirect_to root_path
+      if @employer.save
+        redirect_to root_path
+      else
+        flash[:error_message] = "Employer Update Unsuccessful"
+        redirect_to root_path
+      end
     end
   end
 
   # PATCH/PUT /employers/1
   # PATCH/PUT /employers/1.json
   def update
-    respond_to do |format|
-      if @employer.update(employer_params)
-        format.html { redirect_to root_path, notice: 'Employer was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @employer.errors, status: :unprocessable_entity }
+    employers_only do
+      respond_to do |format|
+        if @employer.update(employer_params)
+          format.html { redirect_to root_path, notice: 'Employer was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @employer.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -71,28 +79,30 @@ class EmployersController < ApplicationController
   # DELETE /employers/1
   # DELETE /employers/1.json
   def destroy
-    Job.where(employer_id: @employer.id).each do |job|
-      JobApplication.where(job_id: job.id).each do |app|
-        app.delete
+    admins_only do
+      Job.where(employer_id: @employer.id).each do |job|
+        JobApplication.where(job_id: job.id).each do |app|
+          app.delete
+        end
+        job.delete
       end
-      job.delete
+      @employer.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { head :no_content }
+      end
+      redirect_to root_path
     end
-    @employer.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.json { head :no_content }
-    end
-    redirect_to root_path
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_employer
-      @employer = Employer.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_employer
+    @employer = Employer.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def employer_params
-      params.require(:employer).permit(:name, :email, :company_name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def employer_params
+    params.require(:employer).permit(:name, :email, :company_name)
+  end
 end
