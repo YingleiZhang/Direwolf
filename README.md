@@ -20,9 +20,13 @@ Program 1: DireWolf Job Portal Online Deployment(User VIew)
 ====================================== 
 
 The website is deployed at http://dry-citadel-4538.herokuapp.com/
-The master admin is 
-username: teamsporstball@gmail.com
-password: direwolf
+Users are:
+
+1. direwolfapp.user1:appAdmin
+2. direwolfapp.user2:appEmploy
+3. direwolfapp.user3:appJobSeeker
+
+While the functionality exists for you to change the password, please do not so other users will be able to use these accounts. These users are added to prevent people from having to use their personal google credentials. As an aside, we are using Google authentication to simplify authentication. tl;dr we do nothing with your data.
 
 We decided to use google authentication for this project.
 
