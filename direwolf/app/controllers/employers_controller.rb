@@ -2,6 +2,7 @@ class EmployersController < ApplicationController
   before_action :set_employer, only: [:show, :edit, :update, :destroy]
 
   include EmployersHelper
+  include AdminsHelper
 
   # GET /employers
   # GET /employers.json
