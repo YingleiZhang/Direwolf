@@ -13,7 +13,9 @@ class User < ActiveRecord::Base
     end
   end
   def self.logout(id)
-    user = find(id)
-    user.destroy
+    if( exists?(id) )
+      user = find(id)
+      user.destroy
+    end
   end
 end
