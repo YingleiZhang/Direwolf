@@ -7,7 +7,7 @@ class Job < ActiveRecord::Base
   acts_as_taggable
 
   def self.search(search)
-    find(:all, :conditions => ['title LIKE ? OR description LIKE ?', "%#{search}%", "%#{search}%" ])
+    find(:all, :conditions => ['UPPER(title) LIKE ? OR UPPER(description) LIKE ?', "%#{search.upcase}%", "%#{search.upcase}%" ])
   end
 
   def expired?
@@ -16,6 +16,10 @@ class Job < ActiveRecord::Base
 
   def ustime
     self.expires_at.strftime('%m/%d/%Y %I:%M %p')
+  end
+
+  def employer_name
+    Employer.find(employer_id).company_name
   end
 
   def self.utctime ustime

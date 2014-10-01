@@ -17,6 +17,9 @@ class JobsController < ApplicationController
         Category.search(search_word).each do |cat|
           @jobs += Job.where( :category_id => cat.id ).to_a
         end
+        Employer.search(search_word).each do |emp|
+          @jobs += Job.where( :employer_id => emp.id).to_a
+        end
       end
 
       # get jobs by tag, want to capture tag phrases like 'Ruby on Rails'

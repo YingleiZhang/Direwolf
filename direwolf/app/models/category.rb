@@ -3,6 +3,6 @@ class Category < ActiveRecord::Base
   validates :name, :presence => true
 
   def self.search(search)
-    find(:all, :conditions => [ 'name LIKE ?', "%#{search}%" ])
+    find(:all, :conditions => [ 'UPPER(name) LIKE ?', "%#{search.upcase}%" ])
   end
 end

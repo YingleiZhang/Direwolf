@@ -3,7 +3,7 @@
     <%= form_tag(jobs_path, :method => "get", id: "search-form", :html => {class: "form-inline", :role => "form"}) do %>
       <div class="form-group">
         <div class="col-md-10">
-          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Jobs" %>
+          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Jobs: Title, Categories, Description, Employer, Tags" %>
         </div>
         <!-- In order to have the "search" icon int the button, we need to use plain HTML instead
              of using a Rails form helper -->
@@ -24,6 +24,7 @@
           <tr>
             <th></th>
             <th>Job Title</th>
+            <th>Employer</th>
             <th>Category</th>
             <th>Actions</th>
           </tr>
@@ -34,14 +35,17 @@
               <td class="col-md-1">
                 <%= job + 1 %>
               </td>
-              <td class="col-md-6">
+              <td class="col-md-5">
                 <%= @jobs[job].title %>
                 <br/>
                 <% @jobs[job].tag_list.each do |tag|%>
                   <span class="label label-danger"><%= tag %></span>
                 <%end%>
               </td>
-              <td class="col-md-4">
+              <td class="col-md-2">
+                <%= @jobs[job].employer_name %>
+              </td>
+              <td class="col-md-2">
                 <%= @jobs[job].category.name %>
               </td>
               <td class="col-md-1">
