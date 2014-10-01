@@ -6,18 +6,28 @@ class JobsController < ApplicationController
 
   def index
     if params[:search]
-      @jobs = Job.search(params[:search])
+
+      @jobs = []
+
+      params[:search].split.each do |search_word|
+        # get jobs by title/description
+        @jobs += Job.search(search_word)
+
+        # get jobs by category
+        Category.search(search_word).each do |cat|
+          @jobs += Job.where( :category_id => cat.id ).to_a
+        end
+      end
+
+      # get jobs by tag, want to capture tag phrases like 'Ruby on Rails'
+      @jobs += Job.tagged_with(params[:search], :wild => true)
+
+      # keep unique
+      @jobs.uniq!
     else
       @jobs = Job.all
     end
-    # @user_type = get_user_type
-    #
-    # if user_is :employer
-    #   @jobs = Job.where( employer_id: get_employer_id )
-    #   return
-    # else
-    #   @jobs = Job.all
-    # end
+    @categories = Category.all
   end
 
   def new

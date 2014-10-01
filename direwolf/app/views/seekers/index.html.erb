@@ -91,6 +91,16 @@
     <div class="panel-heading">
       <h3 class="panel-title">Recommended Jobs</h3>
     </div>
+    <% if @seeker.application_list.any? %>
+    <div class="alert alert-warning">
+      <p>
+        You have applied for jobs with tags:<br/>
+        <% @seeker.application_list.each do |tag|%>
+          <span class="label label-danger"><%= tag %></span>
+        <% end %>
+      </p>
+    </div>
+    <% end %>
     <% if @recommend_jobs.any? %>
       <table class="table table-striped">
         <tbody>
@@ -111,7 +121,6 @@
             </td>
           </tr>
         <% end %>
-
         </tbody>
       </table>
     <% else %>

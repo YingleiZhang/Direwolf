@@ -20,18 +20,29 @@
     </div>
     <% if @jobs.any? %>
       <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Job Title</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         <tbody>
           <% @jobs.each_index do | job | %>
             <tr>
               <td class="col-md-1">
                 <%= job + 1 %>
               </td>
-              <td class="col-md-10">
+              <td class="col-md-6">
                 <%= @jobs[job].title %>
                 <br/>
                 <% @jobs[job].tag_list.each do |tag|%>
                   <span class="label label-danger"><%= tag %></span>
                 <%end%>
+              </td>
+              <td class="col-md-4">
+                <%= @jobs[job].category.name %>
               </td>
               <td class="col-md-1">
                 <%= link_to "Show", job_path(@jobs[job].id), class: "btn btn-primary pull-right" %>
