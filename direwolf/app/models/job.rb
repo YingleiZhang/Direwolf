@@ -9,13 +9,17 @@ class Job < ActiveRecord::Base
   def self.search(search)
     find(:all, :conditions => ['title LIKE ? OR description LIKE ?', "%#{search}%", "%#{search}%" ])
   end
+
   def expired?
     return DateTime.now > self.expires_at
   end
+
   def ustime
     self.expires_at.strftime('%m/%d/%Y %I:%M %p')
   end
+
   def self.utctime ustime
     DateTime.strptime(ustime, '%m/%d/%Y %I:%M %p').to_s
   end
+
 end
