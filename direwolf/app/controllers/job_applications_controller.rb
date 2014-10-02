@@ -25,7 +25,9 @@ class JobApplicationsController < ApplicationController
 
       seeker.application_list.add(tag_list.to_s, parse: true)
       if JobApplication.find_by( seeker_id: @app.seeker_id, job_id: @app.job_id).nil?
-        if !@app.save or !seeker.save
+        if @app.save and seeker.save
+          UserMailer.application_submitted(@app).deliver
+        else
           flash[:error_message] = "Unable to apply for job"
         end
       else
@@ -81,6 +83,7 @@ class JobApplicationsController < ApplicationController
         @app.status_id = "Accepted"
         if( @app.save )
           flash[:status] = "Success"
+          UserMailer.application_status(@app).deliver
         else
           flash[:error_message] = "Unable to change status"
         end
@@ -96,6 +99,7 @@ class JobApplicationsController < ApplicationController
         @app.status_id = "Rejected"
         if( @app.save )
           flash[:status] = "Success"
+          UserMailer.application_status(@app).deliver
         else
           flash[:error_message] = "Unable to change status"
         end
