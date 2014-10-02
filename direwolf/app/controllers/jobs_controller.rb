@@ -7,7 +7,7 @@ class JobsController < ApplicationController
   def index
     if params[:search]
 
-      @jobs = []
+      @jobs = Job.all if params[:search].split.empty?
 
       params[:search].split.each do |search_word|
         # get jobs by title/description
