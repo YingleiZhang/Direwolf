@@ -53,7 +53,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 gem 'autoprefixer-rails'
 
 gem 'less-rails'
+
 gem 'therubyracer'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

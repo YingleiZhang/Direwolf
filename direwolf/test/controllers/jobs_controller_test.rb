@@ -1,7 +1,15 @@
-require 'test_helper'
+require '../test_helper'
 
 class JobControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @controller = JobsController.new
+    @job = jobs(:one)
+  end
+
+  test "should get index" do
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:jobs)
+  end
+
 end
