@@ -6,22 +6,22 @@ class JobsController < ApplicationController
 
   def index
     if params[:search]
+      if params[:search].split.empty?
+        @jobs = Job.all 
+      else
+        params[:search].split.each do |search_word|
+          # get jobs by title/description
+          @jobs = Job.search(search_word)
 
-      @jobs = Job.all if params[:search].split.empty?
-
-      params[:search].split.each do |search_word|
-        # get jobs by title/description
-        @jobs += Job.search(search_word)
-
-        # get jobs by category
-        Category.search(search_word).each do |cat|
-          @jobs += Job.where( :category_id => cat.id ).to_a
-        end
-        Employer.search(search_word).each do |emp|
-          @jobs += Job.where( :employer_id => emp.id).to_a
+          # get jobs by category
+          Category.search(search_word).each do |cat|
+            @jobs += Job.where( :category_id => cat.id ).to_a
+          end
+          Employer.search(search_word).each do |emp|
+            @jobs += Job.where( :employer_id => emp.id).to_a
+          end
         end
       end
-
       # get jobs by tag, want to capture tag phrases like 'Ruby on Rails'
       @jobs += Job.tagged_with(params[:search], :wild => true)
 
